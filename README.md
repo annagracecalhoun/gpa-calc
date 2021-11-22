@@ -4,6 +4,8 @@ react app + server for db class gpa calculator app
 
 install in gpa-calc folder: 
 `npm install axios` 
+`npm uninstall react-router-dom`
+`npm install react-router-dom@5.2.0`
 
 install in server folder: 
 `npm install express body-parser my-sql nodemon cors` 

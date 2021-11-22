@@ -14,8 +14,8 @@ const db = mysql.createConnection({
 });
 
 app.use(bodyParser.urlencoded({extended: true})); 
-app.use(cors); 
-app.use(express.json()); 
+app.use(cors()); 
+app.use(express.json());
 db.connect(); 
 
 app.get('/api/getUser', (req, res) => {
@@ -26,8 +26,8 @@ app.get('/api/getUser', (req, res) => {
 }
 )
 
+
 app.post('/api/create', (req, res) => {
-    res.send('hello login')
    const useName = req.body.useName; 
    const pw = req.body.pw; 
    
@@ -37,8 +37,8 @@ app.post('/api/create', (req, res) => {
     })
 }); 
 
+
 app.get('/', (req, res) => {
-    res.send('hello world'); 
 })
 
 app.listen(3001, () => {

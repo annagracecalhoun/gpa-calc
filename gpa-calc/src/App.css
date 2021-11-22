@@ -15,3 +15,9 @@
   margin: 10px; 
   font-size: 22px;
 }
+
+.logScreen {
+  display: flex; 
+  flex-direction: column;
+  float: center; 
+}

@@ -1,9 +1,9 @@
 import React from "react"; 
 import "../components/MainPage.css"; 
 
-function MainPage () {
+function MainPage (props) {
     return (
-        <div>this is the main page</div>
+        <div> <span>username: {props.name}</span></div>
     )
 }; 
 

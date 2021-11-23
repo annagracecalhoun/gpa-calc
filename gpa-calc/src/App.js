@@ -35,8 +35,6 @@ function App() {
   }
 
   const tryLogin = () => {
-    console.log(userName); 
-    console.log(passWord);
     Axios.get('http://localhost:3001/api/getUser').then((response) => {
     const isValid = response.data.find((o) => o.username === userName && o.password === passWord); 
     if (isValid) {
@@ -71,6 +69,7 @@ function App() {
             </div> :null}
             {valLogin? <div>
               <span>You are logged in!</span>
+              <MainPage name={userName}></MainPage>
 
             </div> : null}
           </Route>: 

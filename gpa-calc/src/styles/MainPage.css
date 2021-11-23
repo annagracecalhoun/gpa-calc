@@ -4,6 +4,10 @@
     background-color: #FACA8C;
 }
 
+.accountHead span {
+    margin: 5px; 
+}
+
 .termClasses {
     border: 2px solid #468579; 
     margin-top: 10px; 

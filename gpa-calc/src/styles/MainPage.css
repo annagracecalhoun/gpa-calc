@@ -1,0 +1,10 @@
+.accountHead {
+    display: flex; 
+    justify-content: space-between;
+    background-color: #FACA8C;
+}
+
+.termClasses {
+    border: 2px solid #468579; 
+    margin-top: 10px; 
+}

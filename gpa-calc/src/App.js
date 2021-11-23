@@ -14,10 +14,6 @@ function App() {
   const [logFail, setlogFail] = useState(false); 
   const [compID, setcompID] = useState(''); 
 
-  useEffect(()=> {
-    Axios.get('http://localhost:3001/api/getUser').then((response) => 
-    console.log(response.data));   // look in console to 
-  }, []); 
  
   const changeUse = (e) => {
     setuserName(e.target.value); 
@@ -40,8 +36,8 @@ function App() {
     const isValid = response.data.find((o) => o.username === userName && o.password === passWord); 
     if (isValid) {
       setvalLogin(true); 
-      const compID = userName.split('@')[0];      // get comp id from email
-      setcompID(compID); 
+      const compID2 = userName.split('@')[0];      // get comp id from email
+      setcompID(compID2); 
     }
     else {
       setvalLogin(false); 
@@ -72,7 +68,7 @@ function App() {
             </div> :null}
             {valLogin? <div>
               <span>You are logged in!</span>
-              <MainPage name={userName} compID={compID}></MainPage>
+              <MainPage name={userName} compId={compID}></MainPage>
 
             </div> : null}
           </Route>: 

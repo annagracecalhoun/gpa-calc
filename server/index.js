@@ -26,20 +26,22 @@ app.get('/api/getUser', (req, res) => {
 }
 )
 
-app.get('api/getStudent', (req, res) => {
-    const compID = req.body.compID; 
-    const getStud = "SELECT * FROM student WHERE computing_ID = ?"; 
-    db.query(getStud, [compID], (err, result) => {
+app.get('/api/getStudent', (req, res) => {
+   /* let compID = req.query.compID; 
+    const getStud = 'SELECT * FROM student WHERE computing_ID = "' + compID + '";'; */
+   const getStud= "SELECT * FROM student"; 
+    db.query(getStud, (err, result) => {
         res.send(result); 
     })
 })
 
 app.get('/api/takenClass', (req, res) => {
-    const compID = req.body.compID; 
+    res.send(req); 
+   /* const compID = req.body.compID; 
     const getTakes = 'SELECT * FROM takes as t NATURAL JOIN term as tt WHERE t.computing_ID = ?;'
     db.query(getTakes, [compID], (err, result) => {
         res.send(result); 
-    })
+    })*/
 })
 
 

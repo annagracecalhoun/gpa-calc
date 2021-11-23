@@ -1,12 +1,14 @@
 import {React, useEffect, useState} from "react"; 
 import "../styles/MainPage.css"; 
 import Axios from 'axios'; 
+import CourseDisplay from "./CourseDisplay";
 
 function MainPage (props) {
 const [studInfo, setStudInfo] = useState([]); 
 const [coursesTaken, setcoursesTaken] = useState([]); 
 const [termsList, settermsList] = useState([]); 
 const [curTerm, setcurTerm] = useState(''); 
+const [curCourses, setcurCourses] = useState([])
 
     useEffect(()=> {
         // {params: {compID: props.compID}} 
@@ -40,10 +42,22 @@ const [curTerm, setcurTerm] = useState('');
                 tempTerms.push(o.term_name); 
             }}); 
         settermsList(tempTerms); 
+        
      }, []); 
+
+     const changecurCourses = () => {
+         var tempCourses = []; 
+         coursesTaken.forEach(o => {
+             if (o.term_name === curTerm) {
+                tempCourses.push(o); 
+             }
+         })
+         setcurCourses(tempCourses); 
+     }
 
      const changeTerm = (e) => {
          setcurTerm(e.target.value); 
+         changecurCourses();
      }
     
     return (
@@ -60,7 +74,7 @@ const [curTerm, setcurTerm] = useState('');
         <select onChange={changeTerm}> 
             {termsList.map((x) => 
               <option>{x}</option>)}
-            </select>
+            </select> <span>{curTerm}</span>
             </div>
         </div>
     )

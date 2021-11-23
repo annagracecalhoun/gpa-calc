@@ -5,11 +5,13 @@ import Axios from 'axios';
 function MainPage (props) {
 const [studInfo, setStudInfo] = useState([]); 
 const [coursesTaken, setcoursesTaken] = useState([]); 
+const [termsList, settermsList] = useState([]); 
+const [curTerm, setcurTerm] = useState(''); 
 
     useEffect(()=> {
         // {params: {compID: props.compID}} 
-        Axios.get('http://localhost:3001/api/getStudent').then((response) => {
         var corInfo = []; 
+        Axios.get('http://localhost:3001/api/getStudent').then((response) => {
         response.data.forEach(o => {
             if (o.computing_ID === props.compId) {
                 console.log(o)
@@ -17,9 +19,11 @@ const [coursesTaken, setcoursesTaken] = useState([]);
             }
         })
         setStudInfo(corInfo); 
-       // console.log(studInfo);
+       console.log(studInfo);
         });  
+     }, []); 
 
+     useEffect(() => {
         Axios.get('http://localhost:3001/api/takenClass').then((response) => {
         var corInfo2 = []; 
         response.data.forEach(o => {
@@ -29,9 +33,18 @@ const [coursesTaken, setcoursesTaken] = useState([]);
             }
         })
         setcoursesTaken(corInfo2); 
-       console.log(coursesTaken);
-        });  
+        }); 
+        var tempTerms = []; 
+        coursesTaken.forEach(o => {
+            if (!tempTerms.includes(o.term_name)) {
+                tempTerms.push(o.term_name); 
+            }}); 
+        settermsList(tempTerms); 
      }, []); 
+
+     const changeTerm = (e) => {
+         setcurTerm(e.target.value); 
+     }
     
     return (
         <div className="mainOuter"> 
@@ -44,7 +57,10 @@ const [coursesTaken, setcoursesTaken] = useState([]);
         </div>
         
         <div className="termClasses"></div>
-        
+        <select onChange={changeTerm}> 
+            {termsList.map((x) => 
+              <option>{x}</option>)}
+            </select>
         </div>
     )
 }; 

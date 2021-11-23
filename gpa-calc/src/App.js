@@ -12,6 +12,7 @@ function App() {
   const [passWord, setpassWord] = useState(''); 
   const [valLogin, setvalLogin] = useState(false); 
   const [logFail, setlogFail] = useState(false); 
+  const [compID, setcompID] = useState(''); 
 
   useEffect(()=> {
     Axios.get('http://localhost:3001/api/getUser').then((response) => 
@@ -39,6 +40,8 @@ function App() {
     const isValid = response.data.find((o) => o.username === userName && o.password === passWord); 
     if (isValid) {
       setvalLogin(true); 
+      const compID = userName.split('@')[0];      // get comp id from email
+      setcompID(compID); 
     }
     else {
       setvalLogin(false); 
@@ -57,7 +60,7 @@ function App() {
           <div className="logScreen">
             <span>Login to your account</span>
             <div className="form">
-            <label>Username</label>
+            <label>Username (must be your UVA email address)</label>
             <input type="text" name="username" onChange={changeUse}></input>
             <label>Password</label>
             <input type="text" name="password" onChange={changePw}></input>
@@ -69,7 +72,7 @@ function App() {
             </div> :null}
             {valLogin? <div>
               <span>You are logged in!</span>
-              <MainPage name={userName}></MainPage>
+              <MainPage name={userName} compID={compID}></MainPage>
 
             </div> : null}
           </Route>: 

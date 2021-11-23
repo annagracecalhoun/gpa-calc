@@ -56,11 +56,12 @@ const [curTerm, setcurTerm] = useState('');
         <span><strong>Cumulative GPA:</strong> {studInfo[0].cumGPA}</span>
         </div>
         
-        <div className="termClasses"></div>
+        <div className="termClasses">
         <select onChange={changeTerm}> 
             {termsList.map((x) => 
               <option>{x}</option>)}
             </select>
+            </div>
         </div>
     )
 }; 

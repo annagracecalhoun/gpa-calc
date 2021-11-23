@@ -36,12 +36,10 @@ app.get('/api/getStudent', (req, res) => {
 })
 
 app.get('/api/takenClass', (req, res) => {
-    res.send(req); 
-   /* const compID = req.body.compID; 
-    const getTakes = 'SELECT * FROM takes as t NATURAL JOIN term as tt WHERE t.computing_ID = ?;'
-    db.query(getTakes, [compID], (err, result) => {
+    const getTakes = 'SELECT * FROM takes NATURAL JOIN term;'
+    db.query(getTakes, (err, result) => {
         res.send(result); 
-    })*/
+    })
 })
 
 

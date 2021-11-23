@@ -4,6 +4,7 @@ import Axios from 'axios';
 
 function MainPage (props) {
 const [studInfo, setStudInfo] = useState([]); 
+const [coursesTaken, setcoursesTaken] = useState([]); 
 
     useEffect(()=> {
         // {params: {compID: props.compID}} 
@@ -11,11 +12,24 @@ const [studInfo, setStudInfo] = useState([]);
         var corInfo = []; 
         response.data.forEach(o => {
             if (o.computing_ID === props.compId) {
+                console.log(o)
                 corInfo.push(o);
             }
         })
         setStudInfo(corInfo); 
-        console.log(studInfo[0]);
+       // console.log(studInfo);
+        });  
+
+        Axios.get('http://localhost:3001/api/takenClass').then((response) => {
+        var corInfo2 = []; 
+        response.data.forEach(o => {
+            if (o.computing_ID === props.compId) {
+               // console.log(o)
+                corInfo2.push(o);
+            }
+        })
+        setcoursesTaken(corInfo2); 
+       console.log(coursesTaken);
         });  
      }, []); 
     

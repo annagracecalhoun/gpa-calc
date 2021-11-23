@@ -7,18 +7,26 @@ const [studInfo, setStudInfo] = useState([]);
 
     useEffect(()=> {
         // {params: {compID: props.compID}} 
-        const corInfo = []
         Axios.get('http://localhost:3001/api/getStudent').then((response) => {
-        corInfo.push(response.data.find(x => x.computing_ID === props.compId)); 
+        var corInfo = []; 
+        response.data.forEach(o => {
+            if (o.computing_ID === props.compId) {
+                corInfo.push(o);
+            }
+        })
+        setStudInfo(corInfo); 
+        console.log(studInfo[0]);
         });  
-    setStudInfo(corInfo); 
      }, []); 
-     
+    
     return (
         <div className="mainOuter"> 
         <div className="accountHead">
         <span><strong>Username: </strong>{props.name}</span>
         <span><strong>Computing ID:</strong> {props.compId}</span>
+        <span><strong>Name: </strong>{studInfo[0].first_name} {studInfo[0].last_name}</span>
+        <span><strong>Year:</strong> {studInfo[0].year}</span>
+        <span><strong>Cumulative GPA:</strong> {studInfo[0].cumGPA}</span>
         </div>
         
         <div className="termClasses"></div>

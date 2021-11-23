@@ -1,0 +1,8 @@
+.courseListing {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #31676F;
+    margin: 7px; 
+    padding-top: 5px; 
+    padding-bottom: 5px;
+}

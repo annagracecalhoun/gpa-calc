@@ -53,6 +53,7 @@ const [curCourses, setcurCourses] = useState([])
              }
          })
          setcurCourses(tempCourses); 
+         console.log(curCourses); 
      }
 
      const changeTerm = (e) => {
@@ -75,6 +76,8 @@ const [curCourses, setcurCourses] = useState([])
             {termsList.map((x) => 
               <option>{x}</option>)}
             </select> <span>{curTerm}</span>
+            {curCourses.map((x, i) => 
+              <CourseDisplay key={i} courseSub={x.subject} courseNum={x.course_number} courseGrade={x.letter_grade} courseCreds={x.credits}></CourseDisplay>)}
             </div>
         </div>
     )

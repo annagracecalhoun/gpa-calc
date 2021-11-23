@@ -35,9 +35,9 @@ function App() {
     Axios.get('http://localhost:3001/api/getUser').then((response) => {
     const isValid = response.data.find((o) => o.username === userName && o.password === passWord); 
     if (isValid) {
-      setvalLogin(true); 
       const compID2 = userName.split('@')[0];      // get comp id from email
       setcompID(compID2); 
+      setvalLogin(true); 
     }
     else {
       setvalLogin(false); 

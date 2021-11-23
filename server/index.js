@@ -36,7 +36,7 @@ app.get('/api/getStudent', (req, res) => {
 })
 
 app.get('/api/takenClass', (req, res) => {
-    const getTakes = 'SELECT * FROM takes NATURAL JOIN term;'
+    const getTakes = 'SELECT * FROM takes NATURAL JOIN term NATURAL JOIN course;'
     db.query(getTakes, (err, result) => {
         res.send(result); 
     })

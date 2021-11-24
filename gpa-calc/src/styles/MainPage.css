@@ -12,3 +12,37 @@
     border: 2px solid #468579; 
     margin-top: 10px; 
 }
+
+.totalsInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.totalsBox {
+    margin: 10px 25px;
+    border-width: 1.5px;
+    border-style: solid;
+    border-radius: 45px;
+    box-shadow: 1px 3px gray;
+    width: 200px;
+    background-color: #E8E8E8;
+}
+
+.totalsBox .top {
+    color: blue;
+    font-size: 1rem;
+}
+
+.mid{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.bottom {
+    font-color: yellow;
+    font-size: 1rem;
+}
+
+

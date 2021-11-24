@@ -97,7 +97,9 @@ function MainPage(props) {
                 
                 <span><strong>Username: </strong>{props.name}</span>
                 <span><strong>Computing ID:</strong> {props.compId}</span>
-      
+                <span><strong>Name: </strong>{studInfo[0].first_name} {studInfo[0].last_name}</span>
+                <span><strong>Year:</strong> {studInfo[0].year}</span>
+                <span><strong>Cumulative GPA:</strong> {studInfo[0].cumGPA}</span>
             </div>
 
             <div className="totalsInfo">

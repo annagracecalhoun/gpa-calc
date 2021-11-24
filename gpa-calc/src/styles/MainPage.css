@@ -29,20 +29,17 @@
     width: 200px;
     background-color: #E8E8E8;
 }
-
 .totalsBox .top {
     color: blue;
-    font-size: 1rem;
+    font-size: 16px;
 }
-
-.mid{
-    font-size: 2rem;
+.totalsBox .mid{
+    font-size: 32px;
     font-weight: bold;
 }
-
-.bottom {
+.totalsBox .bottom {
     font-color: yellow;
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 

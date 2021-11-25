@@ -1,9 +1,15 @@
 import { React, useEffect, useState } from "react";
 import "../styles/MainPage.css";
+import "../styles/AddCourse.css";
 import Axios from 'axios';
 import CourseDisplay from "./CourseDisplay";
 import UserProfile from "./UserProfile";
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 function MainPage(props) {
 
     const [studInfo, setStudInfo] = useState([]);
@@ -13,7 +19,6 @@ function MainPage(props) {
     const [curCourses, setcurCourses] = useState([])
     const [fetchedData, setfetchedData] = useState(false); 
     const [cumGPA, setcumGPA] = useState(0); 
-
     useEffect(() => {
         let corInfo = [];
         Axios.get('http://localhost:3001/api/getStudent').then((response) => {
@@ -160,6 +165,7 @@ function MainPage(props) {
                     {termsList.map((x) =>
                         <option>{x}</option>)}
                 </select> 
+                <button className = "createButton"><Link to="/addCourse">Add Course</Link></button>
                 </div>
                 {curCourses.map((x, i) =>
                     <CourseDisplay key={i} courseSub={x.subject} courseNum={x.course_number} courseGrade={x.letter_grade} courseCreds={x.credits}></CourseDisplay>)}

@@ -8,3 +8,10 @@
     font-size: 16px; 
     background-color: white;
 }
+
+.editButton {
+    padding: 5px; 
+    border-radius: 15px; 
+    border: 2px solid #31676F;
+    background-color: #f1f1ee;
+}

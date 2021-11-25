@@ -54,17 +54,21 @@ function App() {
           <Route exact path="/"> 
           {!valLogin? 
           <div className="logScreen">
-            <span>Login to your account</span>
+            <div className="mainHead">
+            <span>Log in to your UVA GPA Calculator account</span>
+            </div>
             <div className="form">
             <label>Username (must be your UVA email address)</label>
             <input type="text" name="username" onChange={changeUse}></input>
             <label>Password</label>
             <input type="text" name="password" onChange={changePw}></input>
-            <button onClick={tryLogin}>Login</button>
+            <button  className="logButton" onClick={tryLogin}>Login</button>
             {logFail? <span>Login Failed</span>: null}
             </div>
-            <span>Don't have an account?</span>
-            <button><Link to="/createNew">Create New Account</Link></button>
+            <div className="newAcc">
+            <span className="noAcc">Don't have an account?</span>
+            <button className="logButton"><Link to="/createNew">Create New Account</Link></button>
+            </div>
             </div> :null}
             {valLogin? <div>
               <MainPage name={userName} compId={compID}></MainPage>

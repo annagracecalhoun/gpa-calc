@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.mainHead {
+  font-size: 30px; 
+  font-weight: 800px; 
+  background-color: #FACA8C;
+  padding: 5px;
+}
+
 .form {
   display: flex; 
   flex-direction: column; 
@@ -14,6 +21,34 @@
   height: 60px; 
   margin: 10px; 
   font-size: 22px;
+}
+
+.form label {
+  font-size: 18px;
+  margin: 5px; 
+}
+
+.logButton {
+  border: 3px solid #468579; 
+  border-radius: 15px;
+  margin: 5px; 
+  color: blue; 
+  padding: 5px; 
+}
+
+.newAcc {
+  display: flex; 
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 10px; 
+  background-color: #f1f1ee;
+}
+
+.noAcc {
+  margin-top: 10px; 
+  font-size: 16px; 
+  color: #468579;
 }
 
 .logScreen {

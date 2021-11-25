@@ -12,13 +12,13 @@ function MainPage(props) {
     const [curTerm, setcurTerm] = useState('');
     const [curCourses, setcurCourses] = useState([])
     const [fetchedData, setfetchedData] = useState(false); 
+    const [cumGPA, setcumGPA] = useState(0); 
 
     useEffect(() => {
         let corInfo = [];
         Axios.get('http://localhost:3001/api/getStudent').then((response) => {
             response.data.forEach(o => {
                 if (o.computing_ID === props.compId) {
-                    console.log(o)
                     corInfo.push(o)
                 }
             })
@@ -37,6 +37,9 @@ function MainPage(props) {
             setcoursesTaken(corInfo2);
         });
 
+       /* Axios.get('http://localhost:3001/api/gpaVal').then((response) => {
+        setgpaLook(response); 
+        }) */
     }, []);
 
     useEffect(() => {
@@ -59,7 +62,7 @@ function MainPage(props) {
             }
         })
         setcurCourses(tempCourses);
-        console.log(curCourses);
+        //console.log(curCourses);
     }
 
     const changeTerm = (e) => {
@@ -67,6 +70,24 @@ function MainPage(props) {
         changecurCourses();
     }
 
+    const getcumGPA = (courses) => { 
+        Axios.get('http://localhost:3001/api/gpaVal').then((response) => {   
+            let totalCredits = 0;
+            let cumPoints = 0;    
+        courses.forEach(course => {
+                totalCredits+= course.credits; 
+                response.data.forEach(grade => {
+                    if (grade.letter_grade === course.letter_grade) {
+                        cumPoints += (grade.GPA_value * course.credits)
+                    }
+                })
+            })
+            //console.log(cumPoints)
+            //console.log(totalCredits)
+            setcumGPA(cumPoints/totalCredits); 
+            })
+            return cumGPA; 
+    }
 
 
     const getTotalCredits = (courses) => {
@@ -104,7 +125,13 @@ function MainPage(props) {
                 <span><strong>Username: </strong>{props.name}</span>
                 <span><strong>Computing ID:</strong> {props.compId}</span>
             </div>
-
+<div className="gpaBox">
+<div className="totalsBox">   
+                    <h1 className="top">GPA</h1>
+                    <h1 className="mid">{getcumGPA(coursesTaken)}</h1>
+                    <h1 className="bottom">Cumulative</h1>
+                </div>
+</div>
             <div className="totalsInfo">
                 {/*  Total Courses */}
                 <div className="totalsBox">   

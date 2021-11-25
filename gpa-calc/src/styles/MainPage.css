@@ -8,6 +8,14 @@
     margin: 15px; 
 }
 
+.gpaBox {
+    display: flex; 
+    justify-content: center;
+    background-color: #BED7D8;
+    padding-bottom: 5px;
+    padding-top: 5px; 
+}
+
 .termClasses {
     border: 2px solid #468579; 
     margin-top: 10px; 

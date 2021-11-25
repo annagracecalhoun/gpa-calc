@@ -42,6 +42,13 @@ app.get('/api/takenClass', (req, res) => {
     })
 })
 
+app.get('/api/gpaVal', (req, res) => {
+    const getGpa = 'SELECT * FROM gpa_lookup;'
+    db.query(getGpa, (err, result) => {
+        res.send(result); 
+    })
+})
+
 
 app.post('/api/create', (req, res) => {
    const useName = req.body.useName; 

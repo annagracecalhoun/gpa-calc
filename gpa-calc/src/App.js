@@ -67,9 +67,7 @@ function App() {
             <button><Link to="/createNew">Create New Account</Link></button>
             </div> :null}
             {valLogin? <div>
-              <span>You are logged in!</span>
               <MainPage name={userName} compId={compID}></MainPage>
-
             </div> : null}
           </Route>: 
           

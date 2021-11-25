@@ -6,7 +6,7 @@ class UserProfile extends React.Component {
     return (
       <DropdownMenu userName = {this.props.username} triggerType='icon' trigger='glyphicon glyphicon-user'>
         <MenuItem text='Change Password' location='/change-password' />
-        <MenuItem text='Delete Accout' location='/delete' />
+        <MenuItem text='Delete Account' location='/delete' />
         <MenuItem type='separator' />
         <MenuItem text='Logout' />
       </DropdownMenu>

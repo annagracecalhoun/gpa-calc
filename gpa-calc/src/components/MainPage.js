@@ -11,25 +11,21 @@ function MainPage(props) {
     const [termsList, settermsList] = useState([]);
     const [curTerm, setcurTerm] = useState('');
     const [curCourses, setcurCourses] = useState([])
-
-    const[aggergateInfo, setaggregateInfo] = useState([]);
+    const [fetchedData, setfetchedData] = useState(false); 
 
     useEffect(() => {
-        // {params: {compID: props.compID}} 
         let corInfo = [];
         Axios.get('http://localhost:3001/api/getStudent').then((response) => {
             response.data.forEach(o => {
                 if (o.computing_ID === props.compId) {
                     console.log(o)
-                    corInfo.push(o);
+                    corInfo.push(o)
                 }
             })
-            setStudInfo(corInfo);
-            console.log(studInfo);
-        });
-    }, []);
+           
+        }); 
+        setStudInfo(corInfo);
 
-    useEffect(() => {
         Axios.get('http://localhost:3001/api/takenClass').then((response) => {
             var corInfo2 = [];
             response.data.forEach(o => {
@@ -40,6 +36,10 @@ function MainPage(props) {
             })
             setcoursesTaken(corInfo2);
         });
+
+    }, []);
+
+    useEffect(() => {
         var tempTerms = [];
         coursesTaken.forEach(o => {
             if (!tempTerms.includes(o.term_name)) {
@@ -47,8 +47,9 @@ function MainPage(props) {
             }
         });
         settermsList(tempTerms);
+        setfetchedData(true); 
+    }, [coursesTaken]); 
 
-    }, []);
 
     const changecurCourses = () => {
         var tempCourses = [];
@@ -90,16 +91,18 @@ function MainPage(props) {
         return totalTerms;
     }
 
+    /*
+     <span><strong>Name: </strong>{studInfo[0].first_name} {studInfo[0].last_name}</span>
+     <span><strong>Year:</strong> {studInfo[0].year}</span>
+    <span><strong>Cumulative GPA:</strong> {studInfo[0].cumGPA}</span>
+    */
+
     return (
         <div className="mainOuter">
             <div className="accountHead">
                 <UserProfile username={props.name}/>
-                
                 <span><strong>Username: </strong>{props.name}</span>
                 <span><strong>Computing ID:</strong> {props.compId}</span>
-                <span><strong>Name: </strong>{studInfo[0].first_name} {studInfo[0].last_name}</span>
-                <span><strong>Year:</strong> {studInfo[0].year}</span>
-                <span><strong>Cumulative GPA:</strong> {studInfo[0].cumGPA}</span>
             </div>
 
             <div className="totalsInfo">
@@ -122,14 +125,18 @@ function MainPage(props) {
                     <h1 className="bottom">Completed</h1>
                 </div>
             </div>        
-
             <div className="termClasses">
+                {fetchedData ? <div>
+                    <div className="termSelect">
+            <span className="termSel">Select a Term</span>
                 <select onChange={changeTerm}>
                     {termsList.map((x) =>
                         <option>{x}</option>)}
-                </select> <span>{curTerm}</span>
+                </select> 
+                </div>
                 {curCourses.map((x, i) =>
                     <CourseDisplay key={i} courseSub={x.subject} courseNum={x.course_number} courseGrade={x.letter_grade} courseCreds={x.credits}></CourseDisplay>)}
+                   </div> : null}
             </div>
         </div>
     )

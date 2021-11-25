@@ -11,6 +11,25 @@
 .termClasses {
     border: 2px solid #468579; 
     margin-top: 10px; 
+    background-color: #F4EBD0;
+}
+
+.termSelect {
+    display: flex; 
+    justify-content: space-around;
+    font-size: 18px;
+    padding: 5px; 
+}
+
+.termSel {
+    font-weight: 800;
+    color: blue; 
+    font-size: 28px; 
+    margin-top: 5px; 
+}
+
+.termSelect select {
+    padding: 5px; 
 }
 
 .totalsInfo {

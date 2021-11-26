@@ -14,8 +14,21 @@ function App() {
   const [valLogin, setvalLogin] = useState(false); 
   const [logFail, setlogFail] = useState(false); 
   const [compID, setcompID] = useState(''); 
+  const [maj, setMaj] = useState([]); 
 
  
+  useEffect(() => {
+    Axios.get('http://localhost:3001/api/studMajor').then(response => {
+      let allMaj = []
+      response.data.forEach(o => {
+        if (o.computing_ID === compID) {
+          allMaj.push(o.major)
+        }
+      })
+      setMaj(allMaj); 
+    })
+  }, [compID])
+
   const changeUse = (e) => {
     setuserName(e.target.value); 
   }
@@ -28,7 +41,6 @@ function App() {
     Axios.post('http://localhost:3001/api/create', {useName: userName, pw: passWord}).then(() => {
       setuserName(''); 
       setpassWord(''); 
-
     }); 
   }
 
@@ -43,6 +55,7 @@ function App() {
     Axios.post('http://localhost:3001/api/passUpdate', {useName: userName, pw: passWord}).then(() => {
       setuserName(''); 
       setpassWord(''); 
+      setvalLogin(true); 
     }); 
   }
 
@@ -107,13 +120,11 @@ function App() {
             <button className="logButton"><Link to="/createNew">Create New Account</Link></button>
             </div>
             </div> :null}
-            {valLogin? <div>
+            {valLogin? 
+             <div>
               <MainPage name={userName} compId={compID}></MainPage>
-
-
             </div> : null}
           </Route>: 
-          
           <Route exact path="/createNew">
       <span>Create an Account</span>
       <div className="form">
@@ -124,6 +135,15 @@ function App() {
       <button onClick={createAccount}><Link to="/">Create</Link></button>
       </div>
       </Route>
+      <Route exact path="/details">
+            <div className="accInfo">
+            <span><strong>Account Info</strong></span>
+            <span><strong>Username: </strong>{userName}</span>
+            <span><strong>Computing id: </strong>{compID}</span>
+            <span><strong>Majors: </strong><ul>
+              {maj.map((x) => <li>x</li>)}</ul></span>
+            </div>
+        </Route>
       </Switch>
       </Router>
     </div>

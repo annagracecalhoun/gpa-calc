@@ -28,6 +28,11 @@
   margin: 5px; 
 }
 
+.accInfo {
+  display: flex;
+  flex-direction: column;
+}
+
 .logButton {
   border: 3px solid #468579; 
   border-radius: 15px;

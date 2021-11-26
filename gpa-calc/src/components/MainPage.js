@@ -168,7 +168,7 @@ function MainPage(props) {
                 <button className = "createButton"><Link to="/addCourse">Add Course</Link></button>
                 </div>
                 {curCourses.map((x, i) =>
-                    <CourseDisplay key={i} courseSub={x.subject} courseNum={x.course_number} courseGrade={x.letter_grade} courseCreds={x.credits}></CourseDisplay>)}
+                    <CourseDisplay key={i} compID={props.compId} courseSub={x.subject} courseNum={x.course_number} courseGrade={x.letter_grade} courseCreds={x.credits}></CourseDisplay>)}
                    </div> : null}
             </div>
         </div>

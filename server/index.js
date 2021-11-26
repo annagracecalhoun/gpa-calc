@@ -112,6 +112,19 @@ app.post('/api/addCourse', (req, res) => {
  }); 
 
 
+ app.post('/api/delCourse', (req, res) => {
+    const compID = req.body.compID; 
+    const subject = req.body.subject; 
+    const courseNum = req.body.courseNum; 
+    const letGrade = req.body.grade; 
+    
+    const courseDel = 'DELETE FROM takes WHERE computing_ID = ? AND subject = ? AND course_number = ? AND letter_grade= ?;'
+     db.query(courseDel, [compID, subject, courseNum, letGrade], (err, result) => {
+         console.log(err); 
+     })
+ }); 
+
+
 app.get('/', (req, res) => {
 })
 

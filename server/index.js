@@ -68,6 +68,28 @@ app.post('/api/create', (req, res) => {
     })
 }); 
 
+app.post('/api/delete', (req, res) => {
+    const useName = req.body.useName; 
+    const pw = req.body.pw; 
+    
+    const userDel = 'DELETE FROM user WHERE username = ? AND password = ?;'
+     db.query(userDel, [useName, pw], (err, result) => {
+         console.log(err); 
+     })
+ }); 
+
+ app.post('/api/passUpdate', (req, res) => {
+    const useName = req.body.useName; 
+    const pw = req.body.pw; 
+    
+    const userDel = 'UPDATE user SET password = ? WHERE username = ?;'
+     db.query(userDel, [pw, useName], (err, result) => {
+         console.log(err); 
+     })
+ }); 
+ 
+ 
+
 app.post('/api/addCourse', (req, res) => {
     const compID = req.body.cid; 
     const courseName = req.body.courseName; 

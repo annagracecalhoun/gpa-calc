@@ -32,6 +32,20 @@ function App() {
     }); 
   }
 
+  const deleteAccount = () => {
+    Axios.post('http://localhost:3001/api/delete', {useName: userName, pw: passWord}).then(() => {
+      setuserName(''); 
+      setpassWord(''); 
+    }); 
+  }
+
+  const changePassword = () => {
+    Axios.post('http://localhost:3001/api/passUpdate', {useName: userName, pw: passWord}).then(() => {
+      setuserName(''); 
+      setpassWord(''); 
+    }); 
+  }
+
   const tryLogin = () => {
     Axios.get('http://localhost:3001/api/getUser').then((response) => {
     const isValid = response.data.find((o) => o.username === userName && o.password === passWord); 
@@ -53,6 +67,26 @@ function App() {
         <Switch>
           <Route exact path="/addCourse">
               <AddCourse name={userName} compId={compID}></AddCourse>
+            </Route>
+            <Route exact path ="/delete">
+            <span>Confirm username and password to delete account</span>
+      <div className="form">
+        <label>Username (uva email address)</label>
+      <input type="text" name="username" onChange={changeUse}></input>
+      <label>Password</label>
+      <input type="text" name="password" onChange={changePw}></input>
+      <button onClick={deleteAccount}><Link to="/">Delete</Link></button>
+      </div>
+            </Route>
+            <Route exact path="/change-password">
+            <span>Type username and new password</span>
+      <div className="form">
+        <label>Username (uva email address)</label>
+      <input type="text" name="username" onChange={changeUse}></input>
+      <label>New Password</label>
+      <input type="text" name="password" onChange={changePw}></input>
+      <button onClick={changePassword}><Link to="/">Update password</Link></button>
+</div>
             </Route>
           <Route exact path="/"> 
           {!valLogin? 
@@ -81,13 +115,13 @@ function App() {
           </Route>: 
           
           <Route exact path="/createNew">
-      <span>Create an Account (adds username and pw to db)</span>
+      <span>Create an Account</span>
       <div className="form">
-        <label>Username</label>
+        <label>Username (uva email address)</label>
       <input type="text" name="username" onChange={changeUse}></input>
       <label>Password</label>
       <input type="text" name="password" onChange={changePw}></input>
-      <button onClick={createAccount}><Link to="/">Submit</Link></button>
+      <button onClick={createAccount}><Link to="/">Create</Link></button>
       </div>
       </Route>
       </Switch>

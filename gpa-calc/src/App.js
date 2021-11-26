@@ -5,6 +5,7 @@ import MainPage from './components/MainPage';
 import {React, useEffect, useState} from "react"; 
 import Axios from 'axios'; 
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom"; 
+import AddCourse from './components/AddCourse';
 
 
 function App() {
@@ -50,7 +51,9 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          
+          <Route exact path="/addCourse">
+              <AddCourse name={userName} compId={compID}></AddCourse>
+            </Route>
           <Route exact path="/"> 
           {!valLogin? 
           <div className="logScreen">
@@ -72,6 +75,8 @@ function App() {
             </div> :null}
             {valLogin? <div>
               <MainPage name={userName} compId={compID}></MainPage>
+
+
             </div> : null}
           </Route>: 
           

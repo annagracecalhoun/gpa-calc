@@ -8,10 +8,25 @@
     margin: 15px; 
 }
 
+.termList {
+    margin-top: 5px; 
+}
+
+.listTitle {
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 25px;
+}
+
 .createButton {
     border: 3px solid #468579; 
     border-radius: 15px;
     margin: 5px; 
     color: blue; 
     padding: 5px; 
+  }
+
+  .center {
+      display: flex; 
+      justify-content: space-evenly;
   }

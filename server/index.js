@@ -26,6 +26,14 @@ app.get('/api/getUser', (req, res) => {
 }
 )
 
+app.get('/api/getTerms', (req, res) => {
+    const sqlSel = "SELECT * FROM term"; 
+    db.query(sqlSel, (err, result) => {
+        res.send(result); 
+    })
+}
+)
+
 app.get('/api/getStudent', (req, res) => {
    /* let compID = req.query.compID; 
     const getStud = 'SELECT * FROM student WHERE computing_ID = "' + compID + '";'; */
@@ -59,6 +67,19 @@ app.post('/api/create', (req, res) => {
         console.log(err); 
     })
 }); 
+
+app.post('/api/addCourse', (req, res) => {
+    const compID = req.body.cid; 
+    const courseName = req.body.courseName; 
+    const courseNum = req.body.courseNum; 
+    const termId = req.body.term; 
+    const letGrade = req.body.grade; 
+    
+    const userInsert = 'INSERT INTO takes (computing_ID, subject, course_number, letter_grade, term_id) VALUES (?, ?, ?, ?, ?);'
+     db.query(userInsert, [compID, courseName, courseNum, letGrade, termId], (err, result) => {
+         console.log(err); 
+     })
+ }); 
 
 
 app.get('/', (req, res) => {

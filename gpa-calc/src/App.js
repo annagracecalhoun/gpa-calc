@@ -4,7 +4,7 @@ import './App.css';
 import MainPage from './components/MainPage';
 import {React, useEffect, useState} from "react"; 
 import Axios from 'axios'; 
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom"; 
+import {BrowserRouter as Router, Switch, Route, Link, useHistory} from "react-router-dom"; 
 import AddCourse from './components/AddCourse';
 
 
@@ -136,6 +136,7 @@ function App() {
       </div>
       </Route>
       <Route exact path="/details">
+        {testFunc}
             <div className="accInfo">
             <span><strong>Account Info</strong></span>
             <span><strong>Username: </strong>{userName}</span>

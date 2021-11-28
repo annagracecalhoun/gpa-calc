@@ -38,10 +38,12 @@ function App() {
   }
 
   const createAccount = () => {
+    const valUsername = '/@virginia.edu'; 
+    if (userName.includes('@virginia.edu')) {
     Axios.post('http://localhost:3001/api/create', {useName: userName, pw: passWord}).then(() => {
       setuserName(''); 
       setpassWord(''); 
-    }); 
+    }); }  
   }
 
   const deleteAccount = () => {

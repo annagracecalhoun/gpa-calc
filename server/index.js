@@ -70,7 +70,7 @@ app.post('/api/create', (req, res) => {
    const useName = req.body.useName; 
    const pw = req.body.pw; 
    
-   const userInsert = 'INSERT INTO user (username, password) VALUES (?, ?);'
+const userInsert = 'CONNECT user (username, password) VALUES (?, ?);'
     db.query(userInsert, [useName, pw], (err, result) => {
         console.log(err); 
     })

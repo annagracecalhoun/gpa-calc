@@ -25,8 +25,11 @@ function CourseDisplay (props) {
     }
 
     const changeGrade = (e) => {
-        setcGrade(e.target.value); 
+        if (!isNaN(e.target.value)) {
+        setcGrade(e.target.value)
     }; 
+    }; 
+
 
     return (
         <div>

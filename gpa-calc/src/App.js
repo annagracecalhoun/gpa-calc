@@ -136,7 +136,6 @@ function App() {
       </div>
       </Route>
       <Route exact path="/details">
-        {testFunc}
             <div className="accInfo">
             <span><strong>Account Info</strong></span>
             <span><strong>Username: </strong>{userName}</span>

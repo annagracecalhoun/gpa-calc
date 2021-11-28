@@ -124,6 +124,18 @@ app.post('/api/addCourse', (req, res) => {
      })
  }); 
 
+ app.post('/api/updateCourse', (req, res) => {
+    const compID = req.body.compID; 
+    const subject = req.body.subject; 
+    const courseNum = req.body.courseNum; 
+    const letGrade = req.body.grade; 
+    
+    const courseUp = 'UPDATE takes set letter_grade = ? WHERE computing_ID = ? AND subject = ? AND course_number = ?;'
+     db.query(courseUp, [letGrade, compID, subject, courseNum], (err, result) => {
+         console.log(err); 
+     })
+ }); 
+
 
 app.get('/', (req, res) => {
 })

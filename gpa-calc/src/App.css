@@ -1,3 +1,10 @@
+:root {
+  --primary: #e7e4f9; 
+  --secondary: #120348;
+  --black: #000;
+}
+
+
 .App {
   text-align: center;
 }
@@ -5,7 +12,7 @@
 .mainHead {
   font-size: 30px; 
   font-weight: 800px; 
-  background-color: #FACA8C;
+  background-color: var(--primary);
   padding: 5px;
 }
 

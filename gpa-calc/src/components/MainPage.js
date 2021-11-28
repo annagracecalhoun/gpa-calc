@@ -15,7 +15,7 @@ function MainPage(props) {
     const [studInfo, setStudInfo] = useState([]);
     const [coursesTaken, setcoursesTaken] = useState([]);
     const [termsList, settermsList] = useState([]);
-    const [curTerm, setcurTerm] = useState('');
+    const [curTerm, setcurTerm] = useState('2021 Spring');
     const [curCourses, setcurCourses] = useState([])
     const [fetchedData, setfetchedData] = useState(false);
     const [cumGPA, setcumGPA] = useState(0);
@@ -174,27 +174,20 @@ function MainPage(props) {
                     <h1 className="bottom">Completed</h1>
                 </div>
             </div>
-
-
-
-            <div className="termClasses">
-                {fetchedData ?
-                    <div>
-                        <div className="termSelect">
-                            <span className="termSel">Select a Term</span>
-                            <select onChange={changeTerm}>
-                                {termsList.map((x) =>
-                                    <option>{x}</option>)}
-                            </select>
-                            <button className="createButton"><Link to="/addCourse">Add Course</Link></button>
-                        </div>
-                        {curCourses.map((x, i) =>
-                            <CourseDisplay key={i} compID={props.compId} courseSub={x.subject} courseNum={x.course_number} courseGrade={x.letter_grade} courseCreds={x.credits}></CourseDisplay>)}
+            <div className="termClasses" >
+                {fetchedData ? <div>
+                    <div className="termSelect">
+                        <span className="termSel" >Select a Term</span>
+                        <select onChange={changeTerm}>
+                            {termsList.map((x) =>
+                                <option>{x}</option>)}
+                        </select>
+                        <button className="createButton"><Link to="/addCourse">Add Course</Link></button>
                     </div>
-                    : null}
+                    {curCourses.map((x, i) =>
+                        <CourseDisplay key={i} compID={props.compId} courseSub={x.subject} courseNum={x.course_number} courseGrade={x.letter_grade} courseCreds={x.credits}></CourseDisplay>)}
+                </div> : null}
             </div>
-
-
         </div>
     )
 };

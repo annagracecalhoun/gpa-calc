@@ -16,8 +16,6 @@ function App() {
   const [compID, setcompID] = useState('');
   const [maj, setMaj] = useState([]);
 
-  const [user, setUser] = useState();
-
 
   useEffect(() => {
     Axios.get('http://localhost:3001/api/studMajor').then(response => {
@@ -40,10 +38,13 @@ function App() {
   }
 
   const createAccount = () => {
-    Axios.post('http://localhost:3001/api/create', { useName: userName, pw: passWord }).then(() => {
-      setuserName('');
-      setpassWord('');
-    });
+    const valUsername = '/@virginia.edu';
+    if (userName.includes('@virginia.edu')) {
+      Axios.post('http://localhost:3001/api/create', { useName: userName, pw: passWord }).then(() => {
+        setuserName('');
+        setpassWord('');
+      });
+    }
   }
 
   const deleteAccount = () => {
@@ -71,12 +72,6 @@ function App() {
         setlogFail(true);
       }
     });
-  }
-
-  const handleLogout = () => {
-    setUser({});
-    setuserName("");
-
   }
 
 

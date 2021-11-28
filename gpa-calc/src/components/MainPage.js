@@ -15,7 +15,7 @@ function MainPage(props) {
     const [studInfo, setStudInfo] = useState([]);
     const [coursesTaken, setcoursesTaken] = useState([]);
     const [termsList, settermsList] = useState([]);
-    const [curTerm, setcurTerm] = useState('');
+    const [curTerm, setcurTerm] = useState('2021 Spring');
     const [curCourses, setcurCourses] = useState([])
     const [fetchedData, setfetchedData] = useState(false); 
     const [cumGPA, setcumGPA] = useState(0); 
@@ -157,10 +157,10 @@ function MainPage(props) {
                     <h1 className="bottom">Completed</h1>
                 </div>
             </div>        
-            <div className="termClasses">
+            <div className="termClasses" >
                 {fetchedData ? <div>
                     <div className="termSelect">
-            <span className="termSel">Select a Term</span>
+            <span className="termSel" >Select a Term</span>
                 <select onChange={changeTerm}>
                     {termsList.map((x) =>
                         <option>{x}</option>)}

@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import Axios from 'axios';
 
 function ChangePassword() {
-
-
-    const [currentPassword, setCurrentPassword] = useState(localStorage.password);
     const [newPassword, setNewPassword] = useState();
     const [currentPassCheck, setCurrentPassCheck] = useState(false);
     const [passwordChanged, setPasswordChanged] = useState(false);

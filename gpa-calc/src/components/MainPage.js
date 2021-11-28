@@ -9,7 +9,7 @@ import {
     Switch,
     Route,
     Link
-  } from "react-router-dom";
+} from "react-router-dom";
 function MainPage(props) {
 
     const [studInfo, setStudInfo] = useState([]);
@@ -17,8 +17,8 @@ function MainPage(props) {
     const [termsList, settermsList] = useState([]);
     const [curTerm, setcurTerm] = useState('2021 Spring');
     const [curCourses, setcurCourses] = useState([])
-    const [fetchedData, setfetchedData] = useState(false); 
-    const [cumGPA, setcumGPA] = useState(0); 
+    const [fetchedData, setfetchedData] = useState(false);
+    const [cumGPA, setcumGPA] = useState(0);
     useEffect(() => {
         let corInfo = [];
         Axios.get('http://localhost:3001/api/getStudent').then((response) => {
@@ -27,8 +27,8 @@ function MainPage(props) {
                     corInfo.push(o)
                 }
             })
-           
-        }); 
+
+        });
         setStudInfo(corInfo);
 
         Axios.get('http://localhost:3001/api/takenClass').then((response) => {
@@ -42,9 +42,9 @@ function MainPage(props) {
             setcoursesTaken(corInfo2);
         });
 
-       /* Axios.get('http://localhost:3001/api/gpaVal').then((response) => {
-        setgpaLook(response); 
-        }) */
+        /* Axios.get('http://localhost:3001/api/gpaVal').then((response) => {
+         setgpaLook(response); 
+         }) */
     }, []);
 
     useEffect(() => {
@@ -55,8 +55,8 @@ function MainPage(props) {
             }
         });
         settermsList(tempTerms);
-        setfetchedData(true); 
-    }, [coursesTaken]); 
+        setfetchedData(true);
+    }, [coursesTaken]);
 
 
     const changecurCourses = () => {
@@ -75,12 +75,12 @@ function MainPage(props) {
         changecurCourses();
     }
 
-    const getcumGPA = (courses) => { 
-        Axios.get('http://localhost:3001/api/gpaVal').then((response) => {   
+    const getcumGPA = (courses) => {
+        Axios.get('http://localhost:3001/api/gpaVal').then((response) => {
             let totalCredits = 0;
-            let cumPoints = 0;    
-        courses.forEach(course => {
-                totalCredits+= course.credits; 
+            let cumPoints = 0;
+            courses.forEach(course => {
+                totalCredits += course.credits;
                 response.data.forEach(grade => {
                     if (grade.letter_grade === course.letter_grade) {
                         cumPoints += (grade.GPA_value * course.credits)
@@ -89,9 +89,9 @@ function MainPage(props) {
             })
             //console.log(cumPoints)
             //console.log(totalCredits)
-            setcumGPA(cumPoints/totalCredits); 
-            })
-            return cumGPA; 
+            setcumGPA(cumPoints / totalCredits);
+        })
+        return cumGPA;
     }
 
 
@@ -102,7 +102,7 @@ function MainPage(props) {
         })
         return totalCredits;
     }
-    const getTotalCourses= (courses) => {
+    const getTotalCourses = (courses) => {
         let totalCourses = 0;
         courses.forEach(course => {
             totalCourses++;
@@ -125,51 +125,68 @@ function MainPage(props) {
 
     return (
         <div className="mainOuter">
-            <div className="accountHead">
-                <UserProfile username={props.name}/>
-                <span><strong>Username: </strong>{props.name}</span>
-                <span><strong>Computing ID:</strong> {props.compId}</span>
-            </div>
-<div className="gpaBox">
-<div className="totalsBox">   
-                    <h1 className="top">GPA</h1>
-                    <h1 className="mid">{getcumGPA(coursesTaken)}</h1>
-                    <h1 className="bottom">Cumulative</h1>
+
+
+            <div>
+                <div className="header">
+                    <UserProfile username={props.name} />
+                    <span><strong>Username: </strong>{props.name}</span>
+                    <span><strong>Computing ID:</strong> {props.compId}</span>
                 </div>
-</div>
+                <div className="line"> </div>
+            </div>
+
+
+
+            <div className="gpaBox">
+                <div className="totalsBox">
+                    <span className="left">Cumulative GPA</span>
+                    <div className="right">
+                        <span className="GPAFirstLetter">{getcumGPA(coursesTaken).toFixed(2).toString()[0]}</span>
+                        <span className="outOf">{getcumGPA(coursesTaken).toFixed(2).toString().slice(1, 4)} / 4.00</span>
+                    </div>
+
+
+                    {/* <Text style={styles.cumGPAFirstLetter}>{cumGPA.toString()[0]}
+                        <Text style={styles.cumGPA}>{cumGPA.toString().slice(1, 4)} / 4.00</Text>
+                    </Text> */}
+                </div>
+            </div>
+
+
             <div className="totalsInfo">
                 {/*  Total Courses */}
-                <div className="totalsBox">   
+                <div className="totalsBox">
                     <h1 className="top">Courses</h1>
                     <h1 className="mid">{getTotalCourses(coursesTaken)}</h1>
                     <h1 className="bottom">Taken to date</h1>
                 </div>
                 {/*  Total Credits*/}
-               <div className="totalsBox">   
+                <div className="totalsBox">
                     <h1 className="top">Credits</h1>
                     <h1 className="mid">{getTotalCredits(coursesTaken)}</h1>
                     <h1 className="bottom">Earned in total</h1>
                 </div>
                 {/*  Total Terms */}
-                <div className="totalsBox">   
+                <div className="totalsBox">
                     <h1 className="top">Terms</h1>
                     <h1 className="mid">{getTotalTerms(termsList)}</h1>
                     <h1 className="bottom">Completed</h1>
                 </div>
-            </div>        
+            </div>
             <div className="termClasses" >
                 {fetchedData ? <div>
                     <div className="termSelect">
-            <span className="termSel" >Select a Term</span>
-                <select onChange={changeTerm}>
-                    {termsList.map((x) =>
-                        <option>{x}</option>)}
-                </select> 
-                <button className = "createButton"><Link to="/addCourse">Add Course</Link></button>
-                </div>
-                {curCourses.map((x, i) =>
-                    <CourseDisplay key={i} compID={props.compId} courseSub={x.subject} courseNum={x.course_number} courseGrade={x.letter_grade} courseCreds={x.credits}></CourseDisplay>)}
-                   </div> : null}
+                        <span className="termSel" >Select a Term</span>
+                        <select onChange={changeTerm}>
+                            {termsList.map((x) =>
+                                <option>{x}</option>)}
+                        </select>
+                        <button className="createButton"><Link to="/addCourse">Add Course</Link></button>
+                    </div>
+                    {curCourses.map((x, i) =>
+                        <CourseDisplay key={i} compID={props.compId} courseSub={x.subject} courseNum={x.course_number} courseGrade={x.letter_grade} courseCreds={x.credits}></CourseDisplay>)}
+                </div> : null}
             </div>
         </div>
     )

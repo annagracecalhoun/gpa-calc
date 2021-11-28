@@ -1,24 +1,86 @@
-.accountHead {
+.header{
     display: flex; 
     justify-content: space-between;
-    background-color: #FACA8C;
+    background-color: var(--primary);
 }
 
-.accountHead span {
+.header span {
     margin: 15px; 
+}
+
+.line {
+    height: 10px;
+    background-color: var(--secondary);
 }
 
 .gpaBox {
     display: flex; 
     justify-content: center;
-    background-color: #BED7D8;
     padding-bottom: 5px;
     padding-top: 5px; 
 }
+.gpaBox .totalsBox {
+    background-color: var(--primary);
+    width: 705px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 1px 3px gray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.gpaBox .totalsBox .left {
+    font-size: 40px;
+    color: black;
+    align-self: center;
+    margin-left: 75px;
+}
+.gpaBox .totalsBox .right {
+    margin-right: 45px;
+}
+.gpaBox .totalsBox .right .GPAFirstLetter {
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+}
+.gpaBox .totalsBox .right .outOf{
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+.totalsInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.totalsBox {
+    margin: 10px 25px;
+    border-width: 1.5px;
+    border-style: solid;
+    border-radius: 25px;
+    width: 200px;
+    background-color: #E8E8E8;
+    background-color: var(--secondary);
+}
+.totalsBox .top {
+    color: var(--primary);
+    font-size: 16px;
+}
+.totalsBox .mid{
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+}
+.totalsBox .bottom {
+    color: var(--primary);
+    font-size: 16px;
+}
+
 
 .termClasses {
-    border: 2px solid #468579; 
-    margin-top: 10px; 
+    border: 2px solid var(--secondary); 
+    margin-top: 25px;
     background-color: #F4EBD0;
 }
 
@@ -39,34 +101,3 @@
 .termSelect select {
     padding: 5px; 
 }
-
-.totalsInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-}
-
-.totalsBox {
-    margin: 10px 25px;
-    border-width: 1.5px;
-    border-style: solid;
-    border-radius: 45px;
-    box-shadow: 1px 3px gray;
-    width: 200px;
-    background-color: #E8E8E8;
-}
-.totalsBox .top {
-    color: blue;
-    font-size: 16px;
-}
-.totalsBox .mid{
-    font-size: 32px;
-    font-weight: bold;
-}
-.totalsBox .bottom {
-    font-color: yellow;
-    font-size: 16px;
-}
-
-

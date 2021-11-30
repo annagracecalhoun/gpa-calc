@@ -49,6 +49,7 @@ function App() {
 
         localStorage.setItem('username', userName)
         localStorage.setItem('password', passWord)
+        localStorage.setItem('compID', compID2)
 
         setvalLogin(true);
       }

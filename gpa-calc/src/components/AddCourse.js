@@ -9,15 +9,19 @@ function AddCourse(props) {
   const [termId, setTermId] = useState(0);
   const [letterGrade, setGrade] = useState('');
   const [termList, settermList] = useState([]);
+  const [CID, setCID] = useState('');
 
 
   useEffect(() => {
     const tempTerms = []
     Axios.get('http://localhost:3001/api/getTerms').then(response => {
-      console.log(response);
       response.data.forEach(element => {
-          tempTerms.push(element.term_name)
+        if (element.term_id < 16) {
+          tempTerms.push(element.term_name + ": " + element.term_id)
+        }
       });
+      console.log(tempTerms)
+      settermList(tempTerms)
     })
   }, []);
 
@@ -25,17 +29,16 @@ function AddCourse(props) {
     setCourseLetter(e.target.value);
   }
 
+  const changeCID = (e) => {
+    setCID(e.target.value);
+  }
+
   const changeNum = (e) => {
     setCourseNumber(e.target.value);
   }
 
   const changeTerm = (e) => {
-    // console.log(e.target.value);
-    Axios.get('http://localhost:3001/api/getTerms').then((response) => {
-            const targetSet = response.data.find((o) => o.term_name === e.target.value);
-           // console.log(targetSet.term_id);
-            setTermId(targetSet.term_id);
-    });
+    setTermId(e.target.value.split(': ')[1]);
   }
 
   const changeGrade = (e) => {
@@ -44,12 +47,13 @@ function AddCourse(props) {
 
   const addCourse = () => {
     Axios.post('http://localhost:3001/api/addCourse', {
-      cid: localStorage.compID,
+      cid: CID,
       courseName: courseLetter,
       courseNum: courseNumber,
       grade: letterGrade,
       term: termId
     }).then(() => {
+      setCID('')
       setCourseLetter('');
       setCourseNumber(0);
       setGrade('');
@@ -65,6 +69,8 @@ function AddCourse(props) {
         <span><strong>Computing ID:</strong> {props.compId}</span>
       </div>
         <div className="form">
+          <label>Computing ID</label>
+          <input type="text" name="CID" onChange={changeCID}></input>
           <label>Course Name (CS, APMA, SPAN, etc)</label>
           <input type="text" name="Subject" onChange={changeLetter}></input>
           <label>Course Number</label>

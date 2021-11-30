@@ -7,6 +7,9 @@ import Axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
 import AddCourse from './components/AddCourse';
 import ChangePassword from './components/ChangePassword';
+import CreateUser from './components/CreateUser';
+import DeleteUser from './components/DeleteUser';
+
 
 function App() {
   const [userName, setuserName] = useState("");
@@ -37,24 +40,6 @@ function App() {
     setpassWord(e.target.value);
   }
 
-  const createAccount = () => {
-    const valUsername = '/@virginia.edu';
-    if (userName.includes('@virginia.edu')) {
-      Axios.post('http://localhost:3001/api/create', { useName: userName, pw: passWord }).then(() => {
-        setuserName('');
-        setpassWord('');
-      });
-    }
-  }
-
-  const deleteAccount = () => {
-    Axios.post('http://localhost:3001/api/delete', { useName: userName, pw: passWord }).then(() => {
-      setuserName('');
-      setpassWord('');
-    });
-  }
-
-
   const tryLogin = async () => {
     Axios.get('http://localhost:3001/api/getUser').then((response) => {
       const isValid = response.data.find((o) => o.username === userName && o.password === passWord);
@@ -84,16 +69,9 @@ function App() {
             <AddCourse name={userName} compId={compID}></AddCourse>
           </Route>
 
-          {/* Delete Course Page */}
+          {/* Delete User Page */}
           <Route exact path="/delete">
-            <span>Confirm username and password to delete account</span>
-            <div className="form">
-              <label>Username (uva email address)</label>
-              <input type="text" name="username"></input>
-              <label>Password</label>
-              <input type="text" name="password"></input>
-              <button onClick={deleteAccount}><Link to="/">Delete</Link></button>
-            </div>
+            <DeleteUser></DeleteUser>
           </Route>
 
           {/* Change Password Page */}
@@ -121,6 +99,15 @@ function App() {
                   <span className="noAcc">Don't have an account?</span>
                   <button className="logButton"><Link to="/createNew">Create New Account</Link></button>
                 </div>
+
+                {/* Demo User Info */}
+                <div style={{alignSelf: "center", marginTop: "25px", borderRadius: "15px", border: "2px solid #120348", backgroundColor: "#e7e4f9", width: "400px", display: "flex", flexDirection: "column", padding: "10px"}}>
+                    <h4 style={{textAlign:"left", marginLeft: "35px", lineHeight: "1.5"}}>For demo purposes, you may use the following demo user login credentials:</h4>
+                    <h4 style={{textAlign:"left", marginLeft: "35px"}}><strong>Username</strong>: demo@virginia.edu</h4>
+                    <h4 style={{textAlign:"left", marginLeft: "35px"}}><strong>Password</strong>: demo</h4>  
+                   
+                </div>
+                
               </div> : null}
 
             {valLogin ?
@@ -132,15 +119,9 @@ function App() {
 
           {/* Create New Account Page */}
           <Route exact path="/createNew">
-            <span>Create an Account</span>
-            <div className="form">
-              <label>Username (uva email address)</label>
-              <input type="text" name="username" onChange={changeUse}></input>
-              <label>Password</label>
-              <input type="text" name="password" onChange={changePw}></input>
-              <button onClick={createAccount}><Link to="/">Create</Link></button>
-            </div>
+            <CreateUser></CreateUser>
           </Route>
+
           <Route exact path="/details">
             <div className="accInfo">
               <span><strong>Account Info</strong></span>
@@ -150,6 +131,7 @@ function App() {
                 {maj.map((x) => <li>x</li>)}</ul></span>
             </div>
           </Route>
+
         </Switch>
       </Router>
     </div>

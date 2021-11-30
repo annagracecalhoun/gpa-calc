@@ -71,7 +71,7 @@ function AddCourse(props) {
         <div className="form">
           <label>Computing ID</label>
           <input type="text" name="CID" onChange={changeCID}></input>
-          <label>Course Name</label>
+          <label>Course Name (CS, APMA, SPAN, etc)</label>
           <input type="text" name="Subject" onChange={changeLetter}></input>
           <label>Course Number</label>
           <input type="text" name="Number" onChange={changeNum}></input>

@@ -7,10 +7,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors'); 
 
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'user',
-    password: 'G96u9B7hjmbI7BH9 ',
-    database: 'gpa_calc'
+    host: 'portal.cs.virginia.edu',
+    user: 'agc8a',
+    password: 'ZT@mQ8wkAT6gEQX9',
+    database: 'agc8a_gpa_calc'
 });
 
 app.use(bodyParser.urlencoded({extended: true})); 

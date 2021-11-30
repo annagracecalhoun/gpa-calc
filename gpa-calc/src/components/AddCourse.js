@@ -9,6 +9,7 @@ function AddCourse(props) {
   const [termId, setTermId] = useState(0);
   const [letterGrade, setGrade] = useState('');
   const [termList, settermList] = useState([]);
+  const [CID, setCID] = useState('');
 
 
   useEffect(() => {
@@ -28,12 +29,16 @@ function AddCourse(props) {
     setCourseLetter(e.target.value);
   }
 
+  const changeCID = (e) => {
+    setCID(e.target.value);
+  }
+
   const changeNum = (e) => {
     setCourseNumber(e.target.value);
   }
 
   const changeTerm = (e) => {
-    setTermId(e.target.value);
+    setTermId(e.target.value.split(': ')[1]);
   }
 
   const changeGrade = (e) => {
@@ -42,12 +47,13 @@ function AddCourse(props) {
 
   const addCourse = () => {
     Axios.post('http://localhost:3001/api/addCourse', {
-      cid: props.compId,
+      cid: CID,
       courseName: courseLetter,
       courseNum: courseNumber,
       grade: letterGrade,
       term: termId
     }).then(() => {
+      setCID('')
       setCourseLetter('');
       setCourseNumber(0);
       setGrade('');
@@ -62,22 +68,23 @@ function AddCourse(props) {
         <span><strong>Username: </strong>{props.name}</span>
         <span><strong>Computing ID:</strong> {props.compId}</span>
       </div>
-      <div className="center">
-        <div className="termList"> <span className="listTitle"><strong>Term IDs</strong></span> <ul>{termList.map((x) =>
-          <li>{x}</li>)} </ul></div>
         <div className="form">
+          <label>Computing ID</label>
+          <input type="text" name="CID" onChange={changeCID}></input>
           <label>Course Name</label>
           <input type="text" name="Subject" onChange={changeLetter}></input>
           <label>Course Number</label>
           <input type="text" name="Number" onChange={changeNum}></input>
-          <label>Term ID</label>
-          <input type="text" name="Term ID" onChange={changeTerm}></input>
           <label>Letter Grade</label>
           <input type="text" name="Grade" onChange={changeGrade}></input>
+          <label>Term ID</label>
+          <select onChange={changeTerm}>
+                            {termList.map((x) =>
+                                <option>{x}</option>)}
+                        </select>
           <button className="createButton" onClick={addCourse}><Link to="/">Add Course</Link></button>
         </div>
       </div>
-    </div>
 
 
   )

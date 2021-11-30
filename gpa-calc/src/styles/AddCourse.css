@@ -1,7 +1,7 @@
 .accountHead {
     display: flex; 
     justify-content: space-between;
-    background-color: #FACA8C;
+    background-color: var(--primary);
 }
 
 .accountHead span {
@@ -21,7 +21,7 @@
 .createButton {
     border: 3px solid #468579; 
     border-radius: 15px;
-    margin: 5px; 
+    margin: 20px; 
     color: blue; 
     padding: 5px; 
   }
@@ -30,3 +30,10 @@
       display: flex; 
       justify-content: space-evenly;
   }
+
+  .termSel {
+    font-weight: 800;
+    color: blue; 
+    font-size: 28px; 
+    margin-top: 5px; 
+}

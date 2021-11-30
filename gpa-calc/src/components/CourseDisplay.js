@@ -73,10 +73,10 @@ function CourseDisplay (props) {
         <div>
             {!deleteCourseStatus?
             <div className="courseListing">
-                <span><strong>Course Subject: </strong>{props.courseSub}</span>
-                <span><strong>Course number: </strong>{props.courseNum}</span>
-                <span><strong>Course grade: </strong>{courseGrade}</span>
-                <span><strong>Course credits: </strong>{props.courseCreds}</span>
+                <span style={{width: "200px", textAlign: "left"}}><strong>Course Subject: </strong>{props.courseSub}</span>
+                <span style={{width: "200px", textAlign: "left"}}><strong>Course number: </strong>{props.courseNum}</span>
+                <span style={{width: "90px", textAlign: "left"}}><strong>Grade: </strong>{courseGrade}</span>
+                <span style={{width: "90px", textAlign: "left"}}><strong>Credits: </strong>{props.courseCreds}</span>
 
                 <button className="editButton" onClick={editCourse}>Edit Grade</button>
                 <button className="editButton" onClick={delCourse}>Delete Course</button>

@@ -145,11 +145,6 @@ function MainPage(props) {
                         <span className="GPAFirstLetter">{getcumGPA(coursesTaken).toFixed(2).toString()[0]}</span>
                         <span className="outOf">{getcumGPA(coursesTaken).toFixed(2).toString().slice(1, 4)} / 4.00</span>
                     </div>
-
-
-                    {/* <Text style={styles.cumGPAFirstLetter}>{cumGPA.toString()[0]}
-                        <Text style={styles.cumGPA}>{cumGPA.toString().slice(1, 4)} / 4.00</Text>
-                    </Text> */}
                 </div>
             </div>
 

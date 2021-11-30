@@ -83,6 +83,7 @@ function AddCourse(props) {
                                 <option>{x}</option>)}
                         </select>
           <button className="createButton" onClick={addCourse}><Link to="/">Add Course</Link></button>
+          <button className="createButton"><Link to="/">Go back</Link></button>
         </div>
       </div>
 

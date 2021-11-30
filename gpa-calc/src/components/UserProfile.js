@@ -11,7 +11,7 @@ function UserProfile(props) {
       <MenuItem text='Delete Account' location='/delete' />
       <MenuItem text='Account Information' location='/details' />
       <MenuItem type='separator' />
-      <MenuItem text='Logout' />
+      <MenuItem text='Logout' location='/'/>
     </DropdownMenu>
   )
 }

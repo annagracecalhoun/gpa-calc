@@ -13,21 +13,19 @@ function CourseDisplay (props) {
     }; 
 
     const editCourse2 = () => {
-        Axios.post('http://localhost:3001/api/updateCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: props.courseGrade})
+        Axios.post('http://localhost:3001/api/updateCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: cGrade})
         seteditVis(false); 
     }
 
     const delCourse = () => {
         // need to update the interface
-        Axios.post('http://localhost:3001/api/delCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: props.courseGrade})
+        Axios.post('http://localhost:3001/api/delCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: cGrade})
         setdelCourse2(true); 
         // need to re-update courses
     }
 
     const changeGrade = (e) => {
-        if (!isNaN(e.target.value)) {
-        setcGrade(e.target.value)
-    }; 
+        setcGrade(e.target.value); 
     }; 
 
 

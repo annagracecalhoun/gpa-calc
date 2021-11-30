@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors'); 
 
 const db = mysql.createConnection({
-    host: 'portal.cs.virginia.edu',
+    host: 'mysql01.cs.virginia.edu',
     user: 'agc8a',
     password: 'ZT@mQ8wkAT6gEQX9',
     database: 'agc8a_gpa_calc'

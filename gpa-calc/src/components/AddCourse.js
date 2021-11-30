@@ -75,6 +75,7 @@ function AddCourse(props) {
           <label>Letter Grade</label>
           <input type="text" name="Grade" onChange={changeGrade}></input>
           <button className="createButton" onClick={addCourse}><Link to="/">Add Course</Link></button>
+          <button className="createButton"><Link to="/">Go back</Link></button>
         </div>
       </div>
     </div>

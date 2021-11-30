@@ -19,6 +19,7 @@ function MainPage(props) {
     const [curCourses, setcurCourses] = useState([])
     const [fetchedData, setfetchedData] = useState(false);
     const [cumGPA, setcumGPA] = useState(0);
+    
     useEffect(() => {
         let corInfo = [];
         Axios.get('http://localhost:3001/api/getStudent').then((response) => {
@@ -31,8 +32,10 @@ function MainPage(props) {
         });
         setStudInfo(corInfo);
 
+        
+        
         Axios.get('http://localhost:3001/api/takenClass').then((response) => {
-            var corInfo2 = [];
+            let corInfo2 = [];
             response.data.forEach(o => {
                 if (o.computing_ID === props.compId) {
                     // console.log(o)
@@ -41,10 +44,10 @@ function MainPage(props) {
             })
             setcoursesTaken(corInfo2);
         });
-
+        
         /* Axios.get('http://localhost:3001/api/gpaVal').then((response) => {
-         setgpaLook(response); 
-         }) */
+            setgpaLook(response); 
+        }) */
     }, []);
 
     useEffect(() => {
@@ -58,28 +61,12 @@ function MainPage(props) {
         setfetchedData(true);
     }, [coursesTaken]);
 
-
-    const changecurCourses = () => {
-        var tempCourses = [];
-        coursesTaken.forEach(o => {
-            if (o.term_name === curTerm) {
-                tempCourses.push(o);
-            }
-        })
-        setcurCourses(tempCourses);
-        //console.log(curCourses);
-    }
-
-    const changeTerm = (e) => {
-        setcurTerm(e.target.value);
-        changecurCourses();
-    }
-
-    const getcumGPA = (courses) => {
+    // Calculating Cum. GPA
+    useEffect(() => {
         Axios.get('http://localhost:3001/api/gpaVal').then((response) => {
             let totalCredits = 0;
             let cumPoints = 0;
-            courses.forEach(course => {
+            coursesTaken.forEach(course => {
                 totalCredits += course.credits;
                 response.data.forEach(grade => {
                     if (grade.letter_grade === course.letter_grade) {
@@ -87,13 +74,40 @@ function MainPage(props) {
                     }
                 })
             })
-            //console.log(cumPoints)
-            //console.log(totalCredits)
             setcumGPA(cumPoints / totalCredits);
+            localStorage.setItem('cumGPA', cumPoints / totalCredits);
+            
+            console.log("Courses Taken", coursesTaken);
+            console.log("Total Credits", totalCredits);
+            console.log("Cum Points", cumPoints);
+            console.log("Local Storage GPA", localStorage.cumGPA);
         })
-        return cumGPA;
+
+    }, [coursesTaken]);
+
+
+
+    const getcumGPA = () => {
+        console.log("CPA in Local Storage: ", localStorage.cumGPA);
+        return parseFloat(localStorage.cumGPA).toFixed(2);
     }
 
+    const changecurCourses = () => {
+        let tempCourses = [];
+        coursesTaken.forEach(o => {
+            if (o.term_name === curTerm) {
+                tempCourses.push(o);
+            }
+        })
+        setcurCourses(tempCourses);
+
+        // console.log(tempCourses);
+    }
+
+    const changeTerm = (e) => {
+        setcurTerm(e.target.value);
+        changecurCourses();
+    }
 
     const getTotalCredits = (courses) => {
         let totalCredits = 0;
@@ -142,14 +156,10 @@ function MainPage(props) {
                 <div className="totalsBox">
                     <span className="left">Cumulative GPA</span>
                     <div className="right">
-                        <span className="GPAFirstLetter">{getcumGPA(coursesTaken).toFixed(2).toString()[0]}</span>
-                        <span className="outOf">{getcumGPA(coursesTaken).toFixed(2).toString().slice(1, 4)} / 4.00</span>
+                        <span className="GPAFirstLetter">{
+                        getcumGPA().toString()[0]}</span>
+                        <span className="outOf">{getcumGPA().toString().slice(1, 4)} / 4.00</span>
                     </div>
-
-
-                    {/* <Text style={styles.cumGPAFirstLetter}>{cumGPA.toString()[0]}
-                        <Text style={styles.cumGPA}>{cumGPA.toString().slice(1, 4)} / 4.00</Text>
-                    </Text> */}
                 </div>
             </div>
 
@@ -184,8 +194,16 @@ function MainPage(props) {
                         </select>
                         <button className="createButton"><Link to="/addCourse">Add Course</Link></button>
                     </div>
-                    {curCourses.map((x, i) =>
-                        <CourseDisplay key={i} compID={props.compId} courseSub={x.subject} courseNum={x.course_number} courseGrade={x.letter_grade} courseCreds={x.credits}></CourseDisplay>)}
+
+                    {curCourses.map((course, i) =>
+                        <CourseDisplay 
+                            key={i  + course.subject + course.course_number} 
+                            compID={props.compId} 
+                            courseSub={course.subject} 
+                            courseNum={course.course_number} 
+                            courseGrade={course.letter_grade} 
+                            courseCreds={course.credits}
+                        ></CourseDisplay>)}
                 </div> : null}
             </div>
         </div>

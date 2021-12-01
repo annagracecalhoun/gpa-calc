@@ -4,11 +4,12 @@ import './App.css';
 import MainPage from './components/MainPage';
 import { React, useEffect, useState } from "react";
 import Axios from 'axios';
-import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import AddCourse from './components/AddCourse';
 import ChangePassword from './components/ChangePassword';
 import CreateUser from './components/CreateUser';
 import DeleteUser from './components/DeleteUser';
+import AccountInfo from './components/AccountInfo';
 
 
 function App() {
@@ -17,20 +18,7 @@ function App() {
   const [valLogin, setvalLogin] = useState(false);
   const [logFail, setlogFail] = useState(false);
   const [compID, setcompID] = useState('');
-  const [maj, setMaj] = useState([]);
 
-
-  useEffect(() => {
-    Axios.get('https://dry-beach-67057.herokuapp.com/api/studMajor').then(response => {
-      let allMaj = []
-      response.data.forEach(o => {
-        if (o.computing_ID === compID) {
-          allMaj.push(o.major)
-        }
-      })
-      setMaj(allMaj);
-    })
-  }, [compID])
 
   const changeUse = (e) => {
     setuserName(e.target.value);
@@ -137,13 +125,7 @@ function App() {
           </Route>
 
           <Route exact path="/details">
-            <div className="accInfo">
-              <span><strong>Account Info</strong></span>
-              <span><strong>Username: </strong>{userName}</span>
-              <span><strong>Computing id: </strong>{compID}</span>
-              <span><strong>Majors: </strong><ul>
-                {maj.map((x) => <li>x</li>)}</ul></span>
-            </div>
+            <AccountInfo></AccountInfo>
           </Route>
 
         </Switch>

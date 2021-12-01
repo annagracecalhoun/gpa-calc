@@ -6,22 +6,28 @@ import { Link } from "react-router-dom";
 function AddCourse(props) {
   const [courseLetter, setCourseLetter] = useState('');
   const [courseNumber, setCourseNumber] = useState(0);
-  const [termId, setTermId] = useState(0);
-  const [letterGrade, setGrade] = useState('');
+  const [termId, setTermId] = useState(1);
+  const [letterGrade, setGrade] = useState('A+');
   const [termList, settermList] = useState([]);
-  const [CID, setCID] = useState('');
 
+
+  let gradeList = ['A+', 'A', 'A-', 
+  'B+', 'B', 'B-', 
+  'C+', 'C', 'C-',
+  'D+', 'D', 'D-', 
+  'F', 'CR'
+  ]
 
   useEffect(() => {
     const tempTerms = []
     Axios.get('https://dry-beach-67057.herokuapp.com/api/getTerms').then(response => {
+      console.log(response);
       response.data.forEach(element => {
-        if (element.term_id < 16) {
-          tempTerms.push(element.term_name + ": " + element.term_id)
-        }
+          tempTerms.push(element.term_name)
       });
-      console.log(tempTerms)
-      settermList(tempTerms)
+
+      console.log(tempTerms);
+      settermList(tempTerms);
     })
   }, []);
 
@@ -29,37 +35,51 @@ function AddCourse(props) {
     setCourseLetter(e.target.value);
   }
 
-  const changeCID = (e) => {
-    setCID(e.target.value);
-  }
-
   const changeNum = (e) => {
     setCourseNumber(e.target.value);
   }
 
   const changeTerm = (e) => {
-    setTermId(e.target.value.split(': ')[1]);
+    // console.log(e.target.value);
+    Axios.get('https://dry-beach-67057.herokuapp.com/api/getTerms').then((response) => {
+            const targetSet = response.data.find((o) => o.term_name === e.target.value);
+           // console.log(targetSet.term_id);
+            setTermId(targetSet.term_id);
+    });
   }
 
   const changeGrade = (e) => {
     setGrade(e.target.value);
   }
 
+  // Check if everything is provided
+  const validate = () => {
+    if (courseNumber != 0 && courseLetter != '') {
+      console.log("Everything provided")
+    } else {
+      return false;
+    }
+  }
+
   const addCourse = () => {
 
-    Axios.post('https://dry-beach-67057.herokuapp.com/api/addCourse', {
-      cid: CID,
-      courseName: courseLetter,
-      courseNum: courseNumber,
-      grade: letterGrade,
-      term: termId
-    }).then(() => {
-      setCID('')
-      setCourseLetter('');
-      setCourseNumber(0);
-      setGrade('');
-      setTermId(0);
-    });
+    if (validate()) {
+      Axios.post('https://dry-beach-67057.herokuapp.com/api/addCourse', {
+        cid: localStorage.compID,
+        courseName: courseLetter,
+        courseNum: courseNumber,
+        grade: letterGrade,
+        term: termId
+      }).then(() => {
+        setCourseLetter('');
+        setCourseNumber(0);
+        setGrade('');
+        setTermId(0);
+      });
+
+    } else {
+      alert('Please provide all necessary information.')
+    }
   }
 
 
@@ -69,23 +89,42 @@ function AddCourse(props) {
         <span><strong>Username: </strong>{props.name}</span>
         <span><strong>Computing ID:</strong> {props.compId}</span>
       </div>
+
+      
         <div className="form">
-          <label>Computing ID</label>
-          <input type="text" name="CID" onChange={changeCID}></input>
-          <label>Course Name (CS, APMA, SPAN, etc)</label>
-          <input type="text" name="Subject" onChange={changeLetter}></input>
-          <label>Course Number</label>
-          <input type="text" name="Number" onChange={changeNum}></input>
-          <label>Letter Grade</label>
-          <input type="text" name="Grade" onChange={changeGrade}></input>
-          <label>Term ID</label>
-          <select onChange={changeTerm}>
-                            {termList.map((x) =>
-                                <option>{x}</option>)}
-                        </select>
-          <button className="createButton" onClick={addCourse}><Link to="/">Add Course</Link></button>
+
+          <div className="container">
+            <label className="text">Course Name</label>
+            <input className="input" type="text" name="Subject" placeholder="CS, SPAN, COMM, etc." onChange={changeLetter}></input>
+          </div>
+
+          <div className="container">
+            <label className="text">Course Number</label>
+            <input className="input" type="text" name="Number"  placeholder="1010" onChange={changeNum}></input>
+          </div>
+    
+          <div className="container"> 
+            <label className="text">Letter Grade</label>
+            <select className="input" onChange={changeGrade}>
+              {gradeList.map((grade) =>
+                <option key={grade}>{grade}</option>)}
+            </select>
+          </div>
+
+
+          <div className="container">  
+            <label className="text">Term</label>
+            <select className="input" onChange={changeTerm}>
+              {termList.map((term) =>
+                <option key={term}>{term}</option>)}
+            </select>
+          </div>
+          </div>
+
+
           <button className="createButton"><Link to="/">Go back</Link></button>
-        </div>
+          <button className="createButton" onClick={addCourse}><Link to="/">Add Course</Link></button>
+      
       </div>
 
 

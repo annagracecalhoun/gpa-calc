@@ -5,7 +5,7 @@
 }
 
 .accountHead span {
-    margin: 15px; 
+    margin: 15px;
 }
 
 .termList {
@@ -19,11 +19,12 @@
 }
 
 .createButton {
-    border: 3px solid #468579; 
+    border: 3px solid var(--secondary); 
     border-radius: 15px;
     margin: 20px; 
     color: blue; 
-    padding: 5px; 
+    padding: 5px 15px; 
+    width: 200px;
   }
 
   .center {
@@ -36,4 +37,36 @@
     color: blue; 
     font-size: 28px; 
     margin-top: 5px; 
+}
+
+.form {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.container {
+    background-color: var(--secondary);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 700px;
+
+    border: 3px solid black;
+}
+
+.container .text {
+    text-align: left;
+    color: var(--primary);
+    padding: 10px 0px;
+    width: 300px;
+    height: 50px;
+    font-size: 20px;
+}
+
+.container .input {
+    width: 300px;
+    height: 50px;
+    margin: 10px 0px;
+    border-radius: 10px;
+    padding-left: 15px;
+    font-size: 20px;
 }

@@ -32,6 +32,9 @@ function MainPage(props) {
         });
         setStudInfo(corInfo);
 
+        localStorage.setItem('studInfo', corInfo);
+        console.log('Student Info', localStorage.studInfo);
+
         
         
         Axios.get('https://dry-beach-67057.herokuapp.com/api/takenClass').then((response) => {
@@ -77,10 +80,10 @@ function MainPage(props) {
             setcumGPA(cumPoints / totalCredits);
             localStorage.setItem('cumGPA', cumPoints / totalCredits);
             
-            console.log("Courses Taken", coursesTaken);
-            console.log("Total Credits", totalCredits);
-            console.log("Cum Points", cumPoints);
-            console.log("Local Storage GPA", localStorage.cumGPA);
+            // console.log("Courses Taken", coursesTaken);
+            // console.log("Total Credits", totalCredits);
+            // console.log("Cum Points", cumPoints);
+            // console.log("Local Storage GPA", localStorage.cumGPA);
         })
 
     }, [coursesTaken]);
@@ -88,7 +91,8 @@ function MainPage(props) {
 
 
     const getcumGPA = () => {
-        console.log("CPA in Local Storage: ", localStorage.cumGPA);
+        // console.log("GPA in Local Storage: ", localStorage.cumGPA);
+
         return parseFloat(localStorage.cumGPA).toFixed(2);
     }
 
@@ -134,7 +138,6 @@ function MainPage(props) {
     /*
      <span><strong>Name: </strong>{studInfo[0].first_name} {studInfo[0].last_name}</span>
      <span><strong>Year:</strong> {studInfo[0].year}</span>
-    <span><strong>Cumulative GPA:</strong> {studInfo[0].cumGPA}</span>
     */
 
     return (
@@ -146,6 +149,8 @@ function MainPage(props) {
                     <UserProfile username={props.name} />
                     <span><strong>Username: </strong>{props.name}</span>
                     <span><strong>Computing ID:</strong> {props.compId}</span>
+                    {/* <span><strong>Name: </strong>{localStorage.studInfo.first_name} {localStorage.studInfo.last_name}</span>
+                    <span><strong>Year:</strong> {localStorage.studInfo.year}</span> */}
                 </div>
                 <div className="line"> </div>
             </div>
@@ -190,20 +195,21 @@ function MainPage(props) {
                         <span className="termSel" >Select a Term</span>
                         <select onChange={changeTerm}>
                             {termsList.map((x) =>
-                                <option>{x}</option>)}
+                                <option key={x.toString()}>{x}</option>)}
                         </select>
                         <button className="createButton"><Link to="/addCourse">Add Course</Link></button>
                     </div>
 
                     {curCourses.map((course, i) =>
                         <CourseDisplay 
-                            key={i  + course.subject + course.course_number} 
+                            key={(i + course.subject + course.course_number).toString()} 
                             compID={props.compId} 
                             courseSub={course.subject} 
                             courseNum={course.course_number} 
                             courseGrade={course.letter_grade} 
                             courseCreds={course.credits}
-                        ></CourseDisplay>)}
+                        ></CourseDisplay>
+                    )}
                 </div> : null}
             </div>
         </div>

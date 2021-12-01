@@ -46,6 +46,7 @@ function AddCourse(props) {
   }
 
   const addCourse = () => {
+
     Axios.post('http://localhost:3001/api/addCourse', {
       cid: CID,
       courseName: courseLetter,

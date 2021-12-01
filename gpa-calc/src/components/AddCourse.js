@@ -14,7 +14,7 @@ function AddCourse(props) {
 
   useEffect(() => {
     const tempTerms = []
-    Axios.get('http://localhost:3001/api/getTerms').then(response => {
+    Axios.get('https://dry-beach-67057.herokuapp.com/api/getTerms').then(response => {
       response.data.forEach(element => {
         if (element.term_id < 16) {
           tempTerms.push(element.term_name + ": " + element.term_id)
@@ -47,7 +47,7 @@ function AddCourse(props) {
 
   const addCourse = () => {
 
-    Axios.post('http://localhost:3001/api/addCourse', {
+    Axios.post('https://dry-beach-67057.herokuapp.com/api/addCourse', {
       cid: CID,
       courseName: courseLetter,
       courseNum: courseNumber,

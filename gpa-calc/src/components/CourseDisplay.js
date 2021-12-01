@@ -21,7 +21,7 @@ function CourseDisplay (props) {
     const saveGradeChange = () => {
         console.log(courseGrade);
 
-        Axios.post('http://localhost:3001/api/updateCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: courseGrade})
+        Axios.post('https://dry-beach-67057.herokuapp.com/api/updateCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: courseGrade})
         seteditVis(false); 
 
         // update cum. GPA
@@ -31,7 +31,7 @@ function CourseDisplay (props) {
     const updateCumGPA = () => {
         // Get courses taken with their update grades
         let cTaken = [];
-        Axios.get('http://localhost:3001/api/takenClass').then((response) => {
+        Axios.get('https://dry-beach-67057.herokuapp.com/api/takenClass').then((response) => {
             response.data.forEach(o => {
                 if (o.computing_ID === props.compID) {
                     cTaken.push(o);
@@ -42,7 +42,7 @@ function CourseDisplay (props) {
 
         // console.log(cTaken);
 
-        Axios.get('http://localhost:3001/api/gpaVal').then((response) => {
+        Axios.get('https://dry-beach-67057.herokuapp.com/api/gpaVal').then((response) => {
             let totalCredits = 0;
             let cumPoints = 0;
             cTaken.forEach(course => {
@@ -63,7 +63,7 @@ function CourseDisplay (props) {
 
     const delCourse = () => {
         // need to update the interface
-        Axios.post('http://localhost:3001/api/delCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: courseGrade})
+        Axios.post('https://dry-beach-67057.herokuapp.com/api/delCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: courseGrade})
         setdeleteCourseStatus(true); 
         // need to re-update courses
     }

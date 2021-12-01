@@ -10,7 +10,7 @@ function ChangePassword() {
 
 
     const checkCurrentPass = (e) => {
-        Axios.get('http://localhost:3001/api/getUser').then((response) => {
+        Axios.get('https://dry-beach-67057.herokuapp.com/api/getUser').then((response) => {
             const isValid = response.data.find((o) => o.username === localStorage.username && o.password === e.target.value);
 
             //  console.log("Checking user: ", localStorage.username, " with password: ", e.target.value);
@@ -33,7 +33,7 @@ function ChangePassword() {
     const changePassword = () => {
         if (currentPassCheck === true && newPassword) {
             console.log(newPassword)
-            Axios.post('http://localhost:3001/api/passUpdate', { useName: localStorage.username, pw: newPassword }).then(() => {
+            Axios.post('https://dry-beach-67057.herokuapp.com/api/passUpdate', { useName: localStorage.username, pw: newPassword }).then(() => {
                 localStorage.setItem('password', newPassword);
             });
             setPasswordChanged(true);

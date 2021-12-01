@@ -17,7 +17,7 @@ function DeleteUser() {
   }
 
   const deleteAccount = () => {
-    Axios.post('http://localhost:3001/api/delete', { useName: userName, pw: passWord }).then(() => {
+    Axios.post('https://dry-beach-67057.herokuapp.com/api/delete', { useName: userName, pw: passWord }).then(() => {
       setuserName('');
       setpassWord('');
     });

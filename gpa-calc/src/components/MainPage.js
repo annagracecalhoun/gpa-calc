@@ -22,7 +22,7 @@ function MainPage(props) {
     
     useEffect(() => {
         let corInfo = [];
-        Axios.get('http://localhost:3001/api/getStudent').then((response) => {
+        Axios.get('https://dry-beach-67057.herokuapp.com/api/getStudent').then((response) => {
             response.data.forEach(o => {
                 if (o.computing_ID === props.compId) {
                     corInfo.push(o)
@@ -34,7 +34,7 @@ function MainPage(props) {
 
         
         
-        Axios.get('http://localhost:3001/api/takenClass').then((response) => {
+        Axios.get('https://dry-beach-67057.herokuapp.com/api/takenClass').then((response) => {
             let corInfo2 = [];
             response.data.forEach(o => {
                 if (o.computing_ID === props.compId) {
@@ -63,7 +63,7 @@ function MainPage(props) {
 
     // Calculating Cum. GPA
     useEffect(() => {
-        Axios.get('http://localhost:3001/api/gpaVal').then((response) => {
+        Axios.get('https://dry-beach-67057.herokuapp.com/api/gpaVal').then((response) => {
             let totalCredits = 0;
             let cumPoints = 0;
             coursesTaken.forEach(course => {

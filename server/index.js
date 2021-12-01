@@ -6,6 +6,8 @@ const mysql = require('mysql')
 const bodyParser = require('body-parser'); 
 const cors = require('cors'); 
 
+var port = process.env.PORT || 8080; 
+
 const db = mysql.createConnection({
     host: 'mysql01.cs.virginia.edu',
     user: 'agc8a',
@@ -140,7 +142,7 @@ app.post('/api/addCourse', (req, res) => {
 app.get('/', (req, res) => {
 })
 
-app.listen(3001, () => {
+app.listen(port, () => {
     console.log("running on port 3001")
 })
 

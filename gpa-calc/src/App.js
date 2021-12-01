@@ -21,7 +21,7 @@ function App() {
 
 
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/studMajor').then(response => {
+    Axios.get('https://dry-beach-67057.herokuapp.com/api/studMajor').then(response => {
       let allMaj = []
       response.data.forEach(o => {
         if (o.computing_ID === compID) {
@@ -41,7 +41,7 @@ function App() {
   }
 
   const tryLogin = async () => {
-    Axios.get('http://localhost:3001/api/getUser').then((response) => {
+    Axios.get('https://dry-beach-67057.herokuapp.com/api/getUser').then((response) => {
       const isValid = response.data.find((o) => o.username === userName && o.password === passWord);
       if (isValid) {
         const compID2 = userName.split('@')[0];      // get comp id from email

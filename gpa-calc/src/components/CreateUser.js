@@ -21,7 +21,7 @@ function CreateUser() {
         console.log("Success")
         console.log(userName);
         console.log(passWord);
-        Axios.post('http://localhost:3001/api/create', { useName: userName, pw: passWord }).then(() => {
+        Axios.post('https://dry-beach-67057.herokuapp.com/api/create', { useName: userName, pw: passWord }).then(() => {
             setuserName('');
             setpassWord('');
           });

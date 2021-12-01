@@ -53,7 +53,7 @@ function CourseDisplay (props) {
             })
             localStorage.setItem('cumGPA', cumPoints / totalCredits);
             
-            //console.log("GPA after Save", localStorage.cumGPA);
+            console.log("GPA after Save", localStorage.cumGPA);
 
         });
     }

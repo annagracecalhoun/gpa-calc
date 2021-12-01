@@ -12,29 +12,26 @@ import {
 } from "react-router-dom";
 function MainPage(props) {
 
-    const [studInfo, setStudInfo] = useState([]);
+    // const [studInfo, setStudInfo] = useState([]);
     const [coursesTaken, setcoursesTaken] = useState([]);
     const [termsList, settermsList] = useState([]);
-    const [curTerm, setcurTerm] = useState('2021 Spring');
     const [curCourses, setcurCourses] = useState([])
     const [fetchedData, setfetchedData] = useState(false);
-    const [cumGPA, setcumGPA] = useState(0);
+    const [cumGPA, setcumGPA] = useState(4.00);
     
     useEffect(() => {
-        let corInfo = [];
-        Axios.get('https://dry-beach-67057.herokuapp.com/api/getStudent').then((response) => {
-            response.data.forEach(o => {
-                if (o.computing_ID === props.compId) {
-                    corInfo.push(o)
-                }
-            })
 
-        });
-        setStudInfo(corInfo);
 
-        localStorage.setItem('studInfo', corInfo);
-        console.log('Student Info', localStorage.studInfo);
+        // let corInfo = [];
+        // Axios.get('https://dry-beach-67057.herokuapp.com/api/getStudent').then((response) => {
+        //     response.data.forEach(o => {
+        //         if (o.computing_ID === props.compId) {
+        //             corInfo.push(o)
+        //         }
+        //     })
 
+        // });
+        // setStudInfo(corInfo);
         
         
         Axios.get('https://dry-beach-67057.herokuapp.com/api/takenClass').then((response) => {
@@ -80,10 +77,10 @@ function MainPage(props) {
             setcumGPA(cumPoints / totalCredits);
             localStorage.setItem('cumGPA', cumPoints / totalCredits);
             
-            // console.log("Courses Taken", coursesTaken);
+            console.log("Courses Taken", coursesTaken);
             // console.log("Total Credits", totalCredits);
             // console.log("Cum Points", cumPoints);
-            // console.log("Local Storage GPA", localStorage.cumGPA);
+            console.log("Local Storage GPA", localStorage.cumGPA);
         })
 
     }, [coursesTaken]);
@@ -96,21 +93,19 @@ function MainPage(props) {
         return parseFloat(localStorage.cumGPA).toFixed(2);
     }
 
-    const changecurCourses = () => {
+    const changecurCourses = (e) => {
+        let currentTerm = e.target.value;
         let tempCourses = [];
         coursesTaken.forEach(o => {
-            if (o.term_name === curTerm) {
+            if (o.term_name === currentTerm) {
+                console.log("Current Term", currentTerm);
+                console.log("Adding Course", o);
                 tempCourses.push(o);
             }
         })
         setcurCourses(tempCourses);
 
         // console.log(tempCourses);
-    }
-
-    const changeTerm = (e) => {
-        setcurTerm(e.target.value);
-        changecurCourses();
     }
 
     const getTotalCredits = (courses) => {
@@ -195,7 +190,7 @@ function MainPage(props) {
                 {fetchedData ? <div>
                     <div className="termSelect">
                         <span className="termSel" >Select a Term</span>
-                        <select style={{width: "150px", height:"50px"}} onChange={changeTerm}>
+                        <select style={{width: "150px", height:"50px"}} onChange={changecurCourses}>
                             {termsList.map((x) =>
                                 <option key={x.toString()}>{x}</option>)}
                         </select>

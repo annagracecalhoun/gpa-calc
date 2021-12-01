@@ -8,6 +8,13 @@ function CourseDisplay (props) {
     const [courseGrade, setcourseGrade] = useState(props.courseGrade); 
     const[deleteCourseStatus, setdeleteCourseStatus] = useState(false);
 
+    let gradeList = ['A+', 'A', 'A-', 
+                'B+', 'B', 'B-', 
+                'C+', 'C', 'C-',
+                'D+', 'D', 'D-', 
+                'F', 'CR'
+            ]
+
     console.log(props.courseSub, props.courseNum, props.courseGrade);
  
     const editCourse = () => {
@@ -18,15 +25,6 @@ function CourseDisplay (props) {
         setcourseGrade(e.target.value); 
     }; 
 
-    const saveGradeChange = () => {
-        console.log(courseGrade);
-
-        Axios.post('https://dry-beach-67057.herokuapp.com/api/updateCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: courseGrade})
-        seteditVis(false); 
-
-        // update cum. GPA
-        updateCumGPA();
-    }
 
     const updateCumGPA = () => {
         // Get courses taken with their update grades
@@ -40,7 +38,7 @@ function CourseDisplay (props) {
         });
 
 
-        // console.log(cTaken);
+        console.log(cTaken);
 
         Axios.get('https://dry-beach-67057.herokuapp.com/api/gpaVal').then((response) => {
             let totalCredits = 0;
@@ -59,6 +57,17 @@ function CourseDisplay (props) {
 
         });
     }
+
+    const saveGradeChange = () => {
+        console.log("Saved Grade: ", courseGrade);
+
+        Axios.post('https://dry-beach-67057.herokuapp.com/api/updateCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: courseGrade})
+        seteditVis(false); 
+
+        // update cum. GPA
+        updateCumGPA();
+    }
+
 
 
     const delCourse = () => {
@@ -83,7 +92,10 @@ function CourseDisplay (props) {
         </div>: null}
         {editVis && !deleteCourseStatus?<div>
             <label>Course Grade</label>
-    <input type="text" name="Grade" onChange={changeGrade}></input>
+            <select style={{width: "100px", margin: "10px 20px"}} onChange={changeGrade}>
+                            {gradeList.map((x) =>
+                                <option key={x}>{x}</option>)}
+                        </select>
 
     {/* Change this to drop down */}
     <button className = "editCourse" onClick={saveGradeChange}>Save Grade</button>

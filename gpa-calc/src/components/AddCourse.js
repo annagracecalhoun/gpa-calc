@@ -56,6 +56,7 @@ function AddCourse(props) {
   const validate = () => {
     if (courseNumber != 0 && courseLetter != '') {
       console.log("Everything provided")
+      return true;
     } else {
       return false;
     }
@@ -71,6 +72,13 @@ function AddCourse(props) {
         grade: letterGrade,
         term: termId
       }).then(() => {
+        console.log("Computing ID", localStorage.compID);
+        console.log("Course Name", courseLetter);
+        console.log("Course No.", courseNumber);
+        console.log("Grade", letterGrade);
+        console.log("Term", termId);
+
+
         setCourseLetter('');
         setCourseNumber(0);
         setGrade('');

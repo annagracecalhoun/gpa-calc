@@ -1,5 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
 import { DropdownMenu, MenuItem } from 'react-bootstrap-dropdown-menu';
 
 function UserProfile(props) {

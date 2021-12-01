@@ -189,15 +189,17 @@ function MainPage(props) {
                     <h1 className="bottom">Completed</h1>
                 </div>
             </div>
+
+
             <div className="termClasses" >
                 {fetchedData ? <div>
                     <div className="termSelect">
                         <span className="termSel" >Select a Term</span>
-                        <select onChange={changeTerm}>
+                        <select style={{width: "150px", height:"50px"}} onChange={changeTerm}>
                             {termsList.map((x) =>
                                 <option key={x.toString()}>{x}</option>)}
                         </select>
-                        <button className="createButton"><Link to="/addCourse">Add Course</Link></button>
+                        <button className="createButton" style={{marginTop: "5px"}}><Link to="/addCourse">Add Course</Link></button>
                     </div>
 
                     {curCourses.map((course, i) =>

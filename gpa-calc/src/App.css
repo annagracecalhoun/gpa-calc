@@ -41,11 +41,14 @@
 }
 
 .logButton {
-  border: 3px solid #468579; 
+  border: 3px solid var(--secondary); 
   border-radius: 15px;
-  margin: 5px; 
+  margin: 10px; 
   color: blue; 
   padding: 5px; 
+  padding: 5px 15px; 
+  width: 200px;
+
 }
 
 .newAcc {

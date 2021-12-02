@@ -46,26 +46,49 @@ function ChangePassword() {
         <div>
             {passwordChanged ?
                 <div>
-                    <h1>Success!</h1>
+                    <h1 style={{color: "green"}}>Success!</h1>
                     <h5>Your password has been successfully updated.</h5>
-                    <button style={{ marginTop: "10px" }}><Link to="/">Login</Link></button>
+                    <button className="createButton" style={{ marginTop: "10px" }}><Link to="/">Login</Link></button>
                 </div>
                 : null}
 
             {!passwordChanged ?
                 <div>
-                    <span>Type current password and new password</span>
 
-                    <div className="form">
-                        <label>Current Password</label>
-                        <input type="text" name="currentPass" onChange={checkCurrentPass}></input>
-                        <label>New Password</label>
-                        <input type="text" name="newPassword" onChange={getNewPass}></input>
-                        <button onClick={changePassword}>Update password</button>
-                        {changeFail ? <span>Error.</span> : null}
+                    <h2 style={{marginBottom: "20px", fontWeight: "bold"}}>Change Password</h2>
+
+                    <span>Type your current password and the new password</span>
+
+
+
+                    <div className="form" style={{marginTop: "20px"}}>
+
+
+                    <div className="container" style={{margin: "0px"}}>
+                        <label className="text">Current Password</label>
+                        <input className="input" type="text" name="Subject" placeholder="" onChange={checkCurrentPass}></input>
                     </div>
 
-                    <button style={{ marginTop: "10px" }}><Link to="/">Cancel</Link></button>
+                    <div className="container" style={{margin: "0px"}}>
+                        <label className="text">New Password</label>
+                        <input className="input" type="text" name="Number"  placeholder="" onChange={getNewPass}></input>
+                    </div>
+                
+                    </div>
+
+                    <button className="createButton" style={{ marginTop: "5px" }}><Link to="/">Cancel</Link></button>
+                    <button className="createButton" onClick={changePassword}>Update password</button>
+
+
+                    {changeFail ? 
+                    <div>
+
+                    <h3 style={{marginTop: "15px", color: "red"}}>Error!</h3> 
+                    <h5 style={{marginTop: "15px", color: "red"}}>Please provide correct information</h5> 
+
+                    </div>
+                    
+                    : null}
                 </div>
                 : null}
         </div>

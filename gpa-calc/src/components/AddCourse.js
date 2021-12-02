@@ -54,7 +54,7 @@ function AddCourse(props) {
 
   // Check if everything is provided
   const validate = () => {
-    if (courseNumber != 0 && courseLetter != '') {
+    if (courseNumber !== 0 && courseLetter !== '') {
       console.log("Everything provided")
       return true;
     } else {

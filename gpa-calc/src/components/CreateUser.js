@@ -12,6 +12,11 @@ function CreateUser() {
     const [year, setYear] = useState("1st");
     const [major, setMajor] = useState("");
 
+    console.log(firstName); 
+    console.log(lastName); 
+    console.log(year); 
+    console.log(major); 
+
     let yearList = ['1st', '2nd', '3rd', '4th']
     
     const changeUsername = (e) => {
@@ -41,16 +46,11 @@ function CreateUser() {
 
     const createAccount = () => {
       if (userName.includes('@virginia.edu')) {
-          console.log("Success")
-          console.log(userName);
-          console.log(passWord);
           Axios.post('https://dry-beach-67057.herokuapp.com/api/create', { useName: userName, pw: passWord }).then(() => {
               setuserName('');
               setpassWord('');
             });
-      } else {
-          console.log("fail");
-      }
+      } 
     }
 
     return (

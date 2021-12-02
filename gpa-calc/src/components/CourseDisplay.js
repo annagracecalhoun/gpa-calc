@@ -1,5 +1,5 @@
 import Axios from "axios";
-import {React, useState, useEffect} from "react"; 
+import {React, useState} from "react"; 
 import "../styles/CourseDisplay.css"; 
 
 function CourseDisplay (props) {
@@ -14,8 +14,6 @@ function CourseDisplay (props) {
                 'D+', 'D', 'D-', 
                 'F', 'CR'
             ]
-
-    console.log(props.courseSub, props.courseNum, props.courseGrade);
  
     const editCourse = () => {
         seteditVis(true); 
@@ -38,8 +36,6 @@ function CourseDisplay (props) {
         });
 
 
-        console.log(cTaken);
-
         Axios.get('https://dry-beach-67057.herokuapp.com/api/gpaVal').then((response) => {
             let totalCredits = 0;
             let cumPoints = 0;
@@ -53,14 +49,10 @@ function CourseDisplay (props) {
             })
             localStorage.setItem('cumGPA', cumPoints / totalCredits);
             
-            console.log("GPA after Save", localStorage.cumGPA);
-
         });
     }
 
     const saveGradeChange = () => {
-        console.log("Saved Grade: ", courseGrade);
-
         Axios.post('https://dry-beach-67057.herokuapp.com/api/updateCourse', {compID: props.compID, subject: props.courseSub, courseNum: props.courseNum, grade: courseGrade})
         seteditVis(false); 
 

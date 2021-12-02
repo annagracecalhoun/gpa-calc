@@ -5,9 +5,6 @@ import Axios from 'axios';
 import CourseDisplay from "./CourseDisplay";
 import UserProfile from "./UserProfile";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
 function MainPage(props) {
@@ -17,28 +14,13 @@ function MainPage(props) {
     const [termsList, settermsList] = useState([]);
     const [curCourses, setcurCourses] = useState([])
     const [fetchedData, setfetchedData] = useState(false);
-    const [cumGPA, setcumGPA] = useState(4.00);
-    
+
     useEffect(() => {
-
-
-        // let corInfo = [];
-        // Axios.get('https://dry-beach-67057.herokuapp.com/api/getStudent').then((response) => {
-        //     response.data.forEach(o => {
-        //         if (o.computing_ID === props.compId) {
-        //             corInfo.push(o)
-        //         }
-        //     })
-
-        // });
-        // setStudInfo(corInfo);
-        
         
         Axios.get('https://dry-beach-67057.herokuapp.com/api/takenClass').then((response) => {
             let corInfo2 = [];
             response.data.forEach(o => {
                 if (o.computing_ID === props.compId) {
-                    // console.log(o)
                     corInfo2.push(o);
                 }
             })
@@ -48,7 +30,7 @@ function MainPage(props) {
         /* Axios.get('http://localhost:3001/api/gpaVal').then((response) => {
             setgpaLook(response); 
         }) */
-    }, []);
+    }, [props.compId]);
 
     useEffect(() => {
         var tempTerms = [];
@@ -74,13 +56,7 @@ function MainPage(props) {
                     }
                 })
             })
-            setcumGPA(cumPoints / totalCredits);
-            localStorage.setItem('cumGPA', cumPoints / totalCredits);
-            
-            console.log("Courses Taken", coursesTaken);
-            // console.log("Total Credits", totalCredits);
-            // console.log("Cum Points", cumPoints);
-            console.log("Local Storage GPA", localStorage.cumGPA);
+            localStorage.setItem('cumGPA', cumPoints / totalCredits);            
         })
 
     }, [coursesTaken]);
@@ -88,8 +64,6 @@ function MainPage(props) {
 
 
     const getcumGPA = () => {
-        // console.log("GPA in Local Storage: ", localStorage.cumGPA);
-
         return parseFloat(localStorage.cumGPA).toFixed(2);
     }
 
@@ -98,14 +72,10 @@ function MainPage(props) {
         let tempCourses = [];
         coursesTaken.forEach(o => {
             if (o.term_name === currentTerm) {
-                console.log("Current Term", currentTerm);
-                console.log("Adding Course", o);
                 tempCourses.push(o);
             }
         })
         setcurCourses(tempCourses);
-
-        // console.log(tempCourses);
     }
 
     const getTotalCredits = (courses) => {
@@ -130,11 +100,6 @@ function MainPage(props) {
         return totalTerms;
     }
 
-    /*
-     <span><strong>Name: </strong>{studInfo[0].first_name} {studInfo[0].last_name}</span>
-     <span><strong>Year:</strong> {studInfo[0].year}</span>
-    */
-
     return (
         <div className="mainOuter">
 
@@ -144,8 +109,6 @@ function MainPage(props) {
                     <UserProfile username={props.name} />
                     <span><strong>Username: </strong>{props.name}</span>
                     <span><strong>Computing ID:</strong> {props.compId}</span>
-                    {/* <span><strong>Name: </strong>{localStorage.studInfo.first_name} {localStorage.studInfo.last_name}</span>
-                    <span><strong>Year:</strong> {localStorage.studInfo.year}</span> */}
                 </div>
                 <div className="line"> </div>
             </div>

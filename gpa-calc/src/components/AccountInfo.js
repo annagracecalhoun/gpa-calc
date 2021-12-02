@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 
 function AccountInfo(props) {
 
-    const [compID, setcompID] = useState('');
-    const [userName, setuserName] = useState('');
     const [maj, setMaj] = useState([]);
 
     useEffect(() => {
@@ -17,7 +15,6 @@ function AccountInfo(props) {
               allMaj.push(o.major)
             }
           })
-          console.log(allMaj);
           setMaj(allMaj);
         })
       })

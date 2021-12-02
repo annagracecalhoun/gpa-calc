@@ -13,14 +13,10 @@ function ChangePassword() {
         Axios.get('https://dry-beach-67057.herokuapp.com/api/getUser').then((response) => {
             const isValid = response.data.find((o) => o.username === localStorage.username && o.password === e.target.value);
 
-            //  console.log("Checking user: ", localStorage.username, " with password: ", e.target.value);
-
             if (isValid) { // match found in database => valid current password provided
-                console.log("success");
                 setCurrentPassCheck(true);
             }
             else {
-                console.log("fail");
                 setCurrentPassCheck(false);
             }
         });
@@ -32,7 +28,6 @@ function ChangePassword() {
 
     const changePassword = () => {
         if (currentPassCheck === true && newPassword) {
-            console.log(newPassword)
             Axios.post('https://dry-beach-67057.herokuapp.com/api/passUpdate', { useName: localStorage.username, pw: newPassword }).then(() => {
                 localStorage.setItem('password', newPassword);
             });

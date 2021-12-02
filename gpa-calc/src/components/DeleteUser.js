@@ -5,8 +5,6 @@ import Axios from 'axios';
 function DeleteUser() {
     const [userName, setuserName] = useState("");
     const [passWord, setpassWord] = useState("");
-    const [confirm, setConfirm] = useState("");
-
    
   const changeUse = (e) => {
     setuserName(e.target.value);

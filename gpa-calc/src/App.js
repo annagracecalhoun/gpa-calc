@@ -2,7 +2,7 @@
 // https://www.youtube.com/watch?v=_S2GKnFpdtE 
 import './App.css';
 import MainPage from './components/MainPage';
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import Axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import AddCourse from './components/AddCourse';

@@ -1,10 +1,9 @@
 import { React, useEffect, useState } from "react";
 import Axios from 'axios';
-
+import { Link } from "react-router-dom";
 
 
 function AccountInfo(props) {
-
 
     const [compID, setcompID] = useState('');
     const [userName, setuserName] = useState('');
@@ -64,6 +63,8 @@ function AccountInfo(props) {
                         
                     </label>
                 </div>
+
+                <button style={{alignSelf: "center"}}className="createButton"><Link to="/">Go Back</Link></button>
     </div>
   )
 }
